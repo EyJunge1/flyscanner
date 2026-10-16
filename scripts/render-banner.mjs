@@ -37,7 +37,7 @@ const colors = {
 	card: "#141414",
 	foregroundBright: "#ffffff",
 	muted: "#8a8a8a",
-	primary: "#c4b5fd",
+	primary: "#38bdf8", // blue (opencode-mem shell uses violet; flyscanner uses sky)
 };
 
 const W = 1200;

@@ -16,10 +16,10 @@
 		class="pointer-events-auto absolute top-14 left-3 z-20 w-[min(22rem,calc(100%-1.5rem))] rounded-xl border border-slate-700/80 bg-slate-950/95 shadow-2xl backdrop-blur-md"
 	>
 		<div class="flex items-center justify-between border-b border-slate-800 px-3 py-2">
-			<div class="flex items-center gap-2 text-xs font-semibold tracking-wide text-cyan-100 uppercase">
+			<div class="flex items-center gap-2 text-xs font-semibold tracking-wide text-sky-100 uppercase">
 				<Filter size={14} /> Super Filter
 				{#if fleet.activeFilterCount > 0}
-					<span class="rounded-full bg-cyan-700/40 px-1.5 py-0.5 text-[10px] normal-case text-cyan-200"
+					<span class="rounded-full bg-sky-700/40 px-1.5 py-0.5 text-[10px] normal-case text-sky-200"
 						>{fleet.activeFilterCount}</span
 					>
 				{/if}
@@ -47,7 +47,7 @@
 			<label class="block space-y-1">
 				<span class="text-slate-500">Search (hex / callsign / reg / type / op)</span>
 				<input
-					class="w-full rounded-md border border-slate-700 bg-slate-900 px-2 py-1.5 outline-none focus:border-cyan-600"
+					class="w-full rounded-md border border-slate-700 bg-slate-900 px-2 py-1.5 outline-none focus:border-sky-600"
 					bind:value={fleet.searchQuery}
 					placeholder="e.g. DLH or 3c66"
 				/>
@@ -57,21 +57,21 @@
 				<label class="space-y-1">
 					<span class="text-slate-500">Hex</span>
 					<input
-						class="w-full rounded-md border border-slate-700 bg-slate-900 px-2 py-1.5 outline-none focus:border-cyan-600"
+						class="w-full rounded-md border border-slate-700 bg-slate-900 px-2 py-1.5 outline-none focus:border-sky-600"
 						bind:value={fleet.filterIcao}
 					/>
 				</label>
 				<label class="space-y-1">
 					<span class="text-slate-500">Callsign</span>
 					<input
-						class="w-full rounded-md border border-slate-700 bg-slate-900 px-2 py-1.5 outline-none focus:border-cyan-600"
+						class="w-full rounded-md border border-slate-700 bg-slate-900 px-2 py-1.5 outline-none focus:border-sky-600"
 						bind:value={fleet.filterCallsign}
 					/>
 				</label>
 				<label class="space-y-1">
 					<span class="text-slate-500">Type</span>
 					<input
-						class="w-full rounded-md border border-slate-700 bg-slate-900 px-2 py-1.5 outline-none focus:border-cyan-600"
+						class="w-full rounded-md border border-slate-700 bg-slate-900 px-2 py-1.5 outline-none focus:border-sky-600"
 						bind:value={fleet.filterType}
 						placeholder="A320"
 					/>
@@ -79,14 +79,14 @@
 				<label class="space-y-1">
 					<span class="text-slate-500">Reg</span>
 					<input
-						class="w-full rounded-md border border-slate-700 bg-slate-900 px-2 py-1.5 outline-none focus:border-cyan-600"
+						class="w-full rounded-md border border-slate-700 bg-slate-900 px-2 py-1.5 outline-none focus:border-sky-600"
 						bind:value={fleet.filterReg}
 					/>
 				</label>
 				<label class="space-y-1">
 					<span class="text-slate-500">Squawk</span>
 					<input
-						class="w-full rounded-md border border-slate-700 bg-slate-900 px-2 py-1.5 outline-none focus:border-cyan-600"
+						class="w-full rounded-md border border-slate-700 bg-slate-900 px-2 py-1.5 outline-none focus:border-sky-600"
 						bind:value={fleet.filterSquawk}
 						placeholder="7700"
 					/>
@@ -98,14 +98,14 @@
 				<div class="grid grid-cols-2 gap-2">
 					<input
 						type="number"
-						class="rounded-md border border-slate-700 bg-slate-900 px-2 py-1.5 outline-none focus:border-cyan-600"
+						class="rounded-md border border-slate-700 bg-slate-900 px-2 py-1.5 outline-none focus:border-sky-600"
 						placeholder="Min"
 						value={fleet.minAlt ?? ''}
 						oninput={(e) => (fleet.minAlt = numOrNull(e.currentTarget.value))}
 					/>
 					<input
 						type="number"
-						class="rounded-md border border-slate-700 bg-slate-900 px-2 py-1.5 outline-none focus:border-cyan-600"
+						class="rounded-md border border-slate-700 bg-slate-900 px-2 py-1.5 outline-none focus:border-sky-600"
 						placeholder="Max"
 						value={fleet.maxAlt ?? ''}
 						oninput={(e) => (fleet.maxAlt = numOrNull(e.currentTarget.value))}
@@ -116,7 +116,7 @@
 					min="0"
 					max="45000"
 					step="500"
-					class="mt-2 w-full accent-cyan-600"
+					class="mt-2 w-full accent-sky-600"
 					value={fleet.maxAlt ?? 45000}
 					oninput={(e) => {
 						fleet.maxAlt = Number(e.currentTarget.value);
@@ -129,14 +129,14 @@
 				<div class="grid grid-cols-2 gap-2">
 					<input
 						type="number"
-						class="rounded-md border border-slate-700 bg-slate-900 px-2 py-1.5 outline-none focus:border-cyan-600"
+						class="rounded-md border border-slate-700 bg-slate-900 px-2 py-1.5 outline-none focus:border-sky-600"
 						placeholder="Min"
 						value={fleet.minGs ?? ''}
 						oninput={(e) => (fleet.minGs = numOrNull(e.currentTarget.value))}
 					/>
 					<input
 						type="number"
-						class="rounded-md border border-slate-700 bg-slate-900 px-2 py-1.5 outline-none focus:border-cyan-600"
+						class="rounded-md border border-slate-700 bg-slate-900 px-2 py-1.5 outline-none focus:border-sky-600"
 						placeholder="Max"
 						value={fleet.maxGs ?? ''}
 						oninput={(e) => (fleet.maxGs = numOrNull(e.currentTarget.value))}
@@ -148,7 +148,7 @@
 				<span class="text-slate-500">Max distance (nmi)</span>
 				<input
 					type="number"
-					class="w-full rounded-md border border-slate-700 bg-slate-900 px-2 py-1.5 outline-none focus:border-cyan-600"
+					class="w-full rounded-md border border-slate-700 bg-slate-900 px-2 py-1.5 outline-none focus:border-sky-600"
 					placeholder="e.g. 100"
 					value={fleet.maxDistNm ?? ''}
 					oninput={(e) => (fleet.maxDistNm = numOrNull(e.currentTarget.value))}

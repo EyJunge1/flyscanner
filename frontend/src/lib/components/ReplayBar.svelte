@@ -48,13 +48,13 @@
 					min="0"
 					max={Math.max(0, fleet.replaySnapshots.length - 1)}
 					value={fleet.replayIndex}
-					class="w-full accent-cyan-500"
+					class="w-full accent-sky-500"
 					oninput={onScrub}
 				/>
 				<div class="flex items-center justify-center gap-2">
 					<button
 						type="button"
-						class="rounded-md border border-slate-700 p-1.5 text-slate-300 hover:border-cyan-700"
+						class="rounded-md border border-slate-700 p-1.5 text-slate-300 hover:border-sky-700"
 						onclick={() => fleet.applyReplayIndex(fleet.replayIndex - 1)}
 						title="←"
 					>
@@ -62,7 +62,7 @@
 					</button>
 					<button
 						type="button"
-						class="rounded-md border border-slate-700 px-3 py-1.5 text-slate-200 hover:border-cyan-700"
+						class="rounded-md border border-slate-700 px-3 py-1.5 text-slate-200 hover:border-sky-700"
 						onclick={() => fleet.toggleReplayPlayback()}
 						title="Space"
 					>
@@ -74,7 +74,7 @@
 					</button>
 					<button
 						type="button"
-						class="rounded-md border border-slate-700 p-1.5 text-slate-300 hover:border-cyan-700"
+						class="rounded-md border border-slate-700 p-1.5 text-slate-300 hover:border-sky-700"
 						onclick={() => fleet.applyReplayIndex(fleet.replayIndex + 1)}
 						title="→"
 					>

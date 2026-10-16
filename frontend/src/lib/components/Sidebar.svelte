@@ -11,7 +11,7 @@
 	{fleet.sidebarCollapsed ? 'w-0 overflow-hidden border-0' : 'w-[26rem]'}"
 >
 	<header class="flex items-center gap-3 border-b border-slate-800 px-4 py-3">
-		<div class="flex h-9 w-9 items-center justify-center rounded-lg bg-cyan-600/20 text-cyan-400">
+		<div class="flex h-9 w-9 items-center justify-center rounded-lg bg-sky-600/20 text-sky-400">
 			<Plane size={20} />
 		</div>
 		<div class="min-w-0 flex-1">
@@ -33,7 +33,7 @@
 			<button
 				class="flex-1 rounded-md px-2 py-1.5 text-xs font-medium transition
 				{fleet.sidebarTab === id
-					? 'bg-cyan-600/30 text-cyan-100'
+					? 'bg-sky-600/30 text-sky-100'
 					: 'text-slate-400 hover:bg-slate-800 hover:text-slate-200'}"
 				onclick={() => (fleet.sidebarTab = id as typeof fleet.sidebarTab)}
 			>
@@ -49,18 +49,18 @@
 			</div>
 			<div class="grid grid-cols-2 gap-2">
 				<input
-					class="rounded-md border border-slate-700 bg-slate-900 px-2 py-1.5 text-xs outline-none focus:border-cyan-600"
+					class="rounded-md border border-slate-700 bg-slate-900 px-2 py-1.5 text-xs outline-none focus:border-sky-600"
 					placeholder="ICAO"
 					bind:value={fleet.filterIcao}
 				/>
 				<input
-					class="rounded-md border border-slate-700 bg-slate-900 px-2 py-1.5 text-xs outline-none focus:border-cyan-600"
+					class="rounded-md border border-slate-700 bg-slate-900 px-2 py-1.5 text-xs outline-none focus:border-sky-600"
 					placeholder="Callsign"
 					bind:value={fleet.filterCallsign}
 				/>
 				<input
 					type="number"
-					class="rounded-md border border-slate-700 bg-slate-900 px-2 py-1.5 text-xs outline-none focus:border-cyan-600"
+					class="rounded-md border border-slate-700 bg-slate-900 px-2 py-1.5 text-xs outline-none focus:border-sky-600"
 					placeholder="Min alt"
 					value={fleet.minAlt ?? ''}
 					oninput={(e) => {
@@ -70,7 +70,7 @@
 				/>
 				<input
 					type="number"
-					class="rounded-md border border-slate-700 bg-slate-900 px-2 py-1.5 text-xs outline-none focus:border-cyan-600"
+					class="rounded-md border border-slate-700 bg-slate-900 px-2 py-1.5 text-xs outline-none focus:border-sky-600"
 					placeholder="Max alt"
 					value={fleet.maxAlt ?? ''}
 					oninput={(e) => {
@@ -111,7 +111,7 @@
 	{:else}
 		<div class="space-y-4 overflow-y-auto p-4">
 			<div class="flex items-center gap-2 text-sm text-slate-300">
-				<Activity size={16} class="text-cyan-400" /> Live metrics
+				<Activity size={16} class="text-sky-400" /> Live metrics
 			</div>
 			<div class="grid grid-cols-2 gap-2">
 				<div class="stat">
@@ -131,12 +131,12 @@
 					<p class="value">{fleet.stats.max_range_nm.toFixed(0)} nm</p>
 				</div>
 			</div>
-			<Chart points={fleet.rateSeries} color="#22d3ee" label="Message rate" unit="msg/s" />
-			<Chart points={fleet.aircraftSeries} color="#a78bfa" label="Aircraft" unit="ac" />
-			<Chart points={fleet.rangeSeries} color="#34d399" label="Max range" unit="nm" />
+			<Chart points={fleet.rateSeries} label="Message rate" unit="msg/s" />
+			<Chart points={fleet.aircraftSeries} color="var(--ui-muted)" label="Aircraft" unit="ac" />
+			<Chart points={fleet.rangeSeries} color="var(--ui-ok)" label="Max range" unit="nm" />
 			<button
 				type="button"
-				class="block w-full rounded-md border border-slate-700 px-3 py-2 text-center text-xs text-slate-400 hover:border-cyan-700 hover:text-cyan-300"
+				class="block w-full rounded-md border border-slate-700 px-3 py-2 text-center text-xs text-slate-400 hover:border-sky-700 hover:text-sky-300"
 				onclick={() => window.open('/metrics', '_blank', 'noopener,noreferrer')}
 			>
 				Prometheus /metrics
