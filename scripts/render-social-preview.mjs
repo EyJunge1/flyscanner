@@ -71,7 +71,7 @@ const logo = 160;
 const pad = 28;
 const planeScale = (logo - pad * 2) / 24;
 const title = "flyscanner";
-const subtitle = "MODERN ADS-B ALL-IN-ONE";
+const subtitle = "ADS-B ALL-IN-ONE";
 const titleSize = 72;
 const subSize = 28;
 
