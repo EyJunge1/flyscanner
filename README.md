@@ -2,7 +2,7 @@
 
 ![Flyscanner Banner](.github/pics/banner.png)
 
-<!-- Social preview: .github/pics/social-preview.png (1280×640) — GitHub → Settings → General → Social preview -->
+<!-- Social preview: .github/pics/social-preview.png (2560×1280 / 2×) — GitHub → Settings → General → Social preview -->
 
 
 > **Warning — Beta / Fun-Projekt**  
