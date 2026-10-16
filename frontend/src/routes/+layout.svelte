@@ -12,7 +12,7 @@
 <svelte:head>
 	<title>Flyscanner</title>
 	<meta name="description" content="Modern ADS-B tracker — Rust + Svelte 5" />
-	<link rel="icon" href={favicon} />
+	<link rel="icon" href={favicon} type="image/svg+xml" />
 </svelte:head>
 
 {@render children()}
