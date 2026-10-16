@@ -45,8 +45,9 @@ export function brandLayout({ W, H }) {
 	const rx = Math.round(logo * 0.22);
 	const pad = Math.round(logo * 0.188);
 	const planeScale = (logo - pad * 2) / 24;
-	const strokePlane = Math.max(1.75, 24 / planeScale); // ~2px at banner scale
-	const frameStroke = Math.max(2, Math.round(logo * 0.025));
+	// stroke is on the unscaled parent `g` (same as old banner: width 2 @ logo~68)
+	const strokePlane = Math.max(2, logo * 0.03);
+	const frameStroke = Math.max(1.5, logo * 0.02);
 
 	const title = "flyscanner";
 	const subtitle = "ADS-B ALL-IN-ONE";
