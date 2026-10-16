@@ -1,0 +1,128 @@
+@import 'tailwindcss';
+@import 'maplibre-gl/dist/maplibre-gl.css';
+
+html,
+body {
+	margin: 0;
+	height: 100%;
+	background: #020617;
+	font-family:
+		'Segoe UI',
+		ui-sans-serif,
+		system-ui,
+		-apple-system,
+		sans-serif;
+}
+
+* {
+	box-sizing: border-box;
+}
+
+.maplibregl-map {
+	width: 100%;
+	height: 100%;
+}
+
+.maplibregl-ctrl-group {
+	border: 1px solid rgb(51 65 85) !important;
+	border-radius: 0.5rem !important;
+	background: rgb(15 23 42 / 0.9) !important;
+	box-shadow: 0 4px 12px rgb(0 0 0 / 0.35) !important;
+	backdrop-filter: blur(6px);
+	overflow: hidden;
+}
+
+.maplibregl-ctrl-group button {
+	width: 30px !important;
+	height: 30px !important;
+	background-color: transparent !important;
+}
+
+.maplibregl-ctrl-group button + button {
+	border-top: 1px solid rgb(51 65 85) !important;
+}
+
+.maplibregl-ctrl-group button:hover {
+	background-color: rgb(30 41 59 / 0.95) !important;
+}
+
+.maplibregl-ctrl-group button:focus {
+	outline: none !important;
+	box-shadow: inset 0 0 0 1px rgb(8 145 178 / 0.6) !important;
+}
+
+.maplibregl-ctrl-group button:disabled {
+	opacity: 0.4;
+}
+
+.maplibregl-ctrl-icon {
+	filter: invert(1) brightness(0.9);
+	opacity: 0.85;
+}
+
+.maplibregl-ctrl-group button:hover .maplibregl-ctrl-icon {
+	opacity: 1;
+	filter: invert(78%) sepia(42%) saturate(500%) hue-rotate(146deg) brightness(105%);
+}
+
+/* Keep zoom/compass clear of the collapsed side-rail (map is full-bleed under the panel). */
+.maplibregl-ctrl-top-right {
+	top: 0.75rem;
+	right: 2.75rem;
+}
+
+.maplibregl-ctrl-attrib {
+	font-size: 10px;
+	background: rgb(15 23 42 / 0.85) !important;
+	color: rgb(148 163 184) !important;
+	border-radius: 0.35rem;
+	backdrop-filter: blur(4px);
+}
+
+.maplibregl-ctrl-attrib a {
+	color: rgb(103 232 249) !important;
+}
+
+.maplibregl-ctrl-attrib a:hover {
+	color: rgb(165 243 252) !important;
+}
+
+.chip {
+	display: inline-flex;
+	align-items: center;
+	gap: 0.25rem;
+	border-radius: 9999px;
+	border: 1px solid rgb(51 65 85);
+	padding: 0.2rem 0.55rem;
+	font-size: 10px;
+	color: rgb(148 163 184);
+	background: rgb(15 23 42 / 0.85);
+	backdrop-filter: blur(4px);
+}
+.chip.active {
+	border-color: rgb(8 145 178);
+	background: rgb(8 145 178 / 0.25);
+	color: rgb(165 243 252);
+}
+.chip:disabled {
+	opacity: 0.5;
+}
+.stat {
+	border-radius: 0.5rem;
+	border: 1px solid rgb(30 41 59);
+	background: rgb(15 23 42);
+	padding: 0.65rem 0.75rem;
+}
+.stat .label {
+	font-size: 10px;
+	text-transform: uppercase;
+	letter-spacing: 0.04em;
+	color: rgb(100 116 139);
+}
+.stat .value {
+	margin-top: 0.15rem;
+	font-family: ui-monospace, monospace;
+	font-size: 1.1rem;
+	font-weight: 600;
+	color: rgb(226 232 240);
+}

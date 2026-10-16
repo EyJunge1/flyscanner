@@ -1,0 +1,12 @@
+# Linux-only USB passthrough for RTL-SDR / similar.
+# Use together with the main compose file:
+#   docker compose -f deploy/docker-compose.yml -f deploy/docker-compose.sdr.yml \
+#     --profile full up -d --build
+#
+# On Windows / macOS Docker Desktop this typically fails — use profile `beast`
+# or `demo` instead (see docs/PLATFORMS.md).
+
+services:
+  readsb:
+    devices:
+      - /dev/bus/usb:/dev/bus/usb

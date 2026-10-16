@@ -1,0 +1,19 @@
+{
+  "name": "flyscanner-workspace",
+  "private": true,
+  "description": "Cross-platform helper scripts for Flyscanner (Windows / macOS / Linux)",
+  "scripts": {
+    "web": "npm --prefix frontend install && npm --prefix frontend run build",
+    "demo": "npm run web && cargo run -- --demo --lat 52.52 --lon 13.405 --db data/flyscanner.db",
+    "build": "npm run web && cargo build",
+    "release": "npm run web && cargo build --release",
+    "frontend:dev": "npm --prefix frontend run dev",
+    "frontend:sim": "npm --prefix frontend run sim",
+    "docker:demo": "docker compose -f deploy/docker-compose.yml --profile demo up --build",
+    "docker:beast": "docker compose -f deploy/docker-compose.yml --profile beast up --build",
+    "docker:full": "docker compose -f deploy/docker-compose.yml -f deploy/docker-compose.sdr.yml --profile full up --build",
+    "fmt": "cargo fmt --all && npm --prefix frontend run format",
+    "lint": "cargo fmt --all -- --check && cargo clippy --all-targets -- -D warnings && npm --prefix frontend run lint",
+    "check": "npm run lint && npm --prefix frontend run check"
+  }
+}

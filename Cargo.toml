@@ -1,0 +1,112 @@
+[package]
+name = "flyscanner"
+version = "0.1.0"
+edition = "2024"
+rust-version = "1.99"
+license = "MIT"
+authors = ["Flyscanner"]
+description = "Modern ADS-B all-in-one (Rust + Svelte 5)"
+repository = "https://github.com/arneleder/flyscanner"
+
+[[bin]]
+name = "flyscanner"
+path = "src/main.rs"
+
+[dependencies]
+anyhow = "1"
+axum = { version = "0.8", features = ["ws"] }
+bytes = "1"
+chrono = { version = "0.4", features = ["serde"] }
+clap = { version = "4", features = ["derive", "env"] }
+flate2 = "1"
+futures = "0.3"
+hex = "0.4"
+prometheus = "0.13"
+rand = "0.9"
+rs1090 = "0.7"
+rust-embed = "8"
+serde = { version = "1", features = ["derive"] }
+serde_json = "1"
+thiserror = "2"
+tokio = { version = "1", features = [
+    "rt-multi-thread",
+    "macros",
+    "net",
+    "sync",
+    "time",
+    "io-util",
+    "signal",
+] }
+tokio-util = { version = "0.7", features = ["rt"] }
+tower-http = { version = "0.6", features = ["cors", "trace"] }
+tracing = "0.1"
+tracing-subscriber = { version = "0.3", features = ["env-filter"] }
+turso = "0.4.4"
+uuid = { version = "1", features = ["v4", "serde"] }
+
+[dev-dependencies]
+tokio = { version = "1", features = [
+    "rt-multi-thread",
+    "macros",
+    "net",
+    "sync",
+    "time",
+    "io-util",
+    "signal",
+] }
+
+[profile.release]
+lto = "thin"
+codegen-units = 1
+
+[lints.rust]
+unsafe_code = "forbid"
+unused_must_use = "deny"
+
+[lints.clippy]
+all = { level = "deny", priority = -1 }
+pedantic = { level = "deny", priority = -1 }
+nursery = { level = "deny", priority = -1 }
+dbg_macro = "deny"
+todo = "deny"
+unimplemented = "deny"
+unwrap_used = "deny"
+expect_used = "deny"
+indexing_slicing = "deny"
+panic = "deny"
+# ADS-B: lat/lon/range math requires floats (unlike keyforge)
+float_arithmetic = "allow"
+print_stdout = "deny"
+print_stderr = "deny"
+exit = "deny"
+mem_forget = "deny"
+string_add = "deny"
+wildcard_dependencies = "deny"
+empty_structs_with_brackets = "deny"
+rest_pat_in_fully_bound_structs = "deny"
+same_name_method = "deny"
+# Common pedantic/nursery noise for this app shape
+module_name_repetitions = "allow"
+missing_errors_doc = "allow"
+missing_panics_doc = "allow"
+must_use_candidate = "allow"
+redundant_pub_crate = "allow"
+cast_possible_truncation = "allow"
+cast_possible_wrap = "allow"
+cast_precision_loss = "allow"
+cast_sign_loss = "allow"
+cast_lossless = "allow"
+suboptimal_flops = "allow"
+missing_const_for_fn = "allow"
+significant_drop_tightening = "allow"
+too_many_lines = "allow"
+similar_names = "allow"
+needless_raw_string_hashes = "allow"
+implicit_clone = "allow"
+assigning_clones = "allow"
+match_same_arms = "allow"
+option_if_let_else = "allow"
+if_not_else = "allow"
+needless_pass_by_value = "allow"
+needless_continue = "allow"
+doc_markdown = "allow"

@@ -1,0 +1,2 @@
+# Use Clippy defaults for thresholds (no raised limits).
+# Levels live in Cargo.toml `[lints.clippy]`.

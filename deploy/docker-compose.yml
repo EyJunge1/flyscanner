@@ -1,0 +1,110 @@
+# Flyscanner stack — Ultrafeeder-Ersatz (readsb demod + Flyscanner UI/state + optional feeders)
+#
+# Demo (no SDR) — works on Linux / macOS / Windows Docker:
+#   docker compose -f deploy/docker-compose.yml --profile demo up -d --build
+#
+# Beast from host/remote (no local SDR) — Win/Mac/Linux:
+#   FLYSCANNER_BEAST_HOST=host.docker.internal \
+#     docker compose -f deploy/docker-compose.yml --profile beast up -d --build
+#
+# Full SDR stack (Linux + USB only — also load docker-compose.sdr.yml):
+#   docker compose -f deploy/docker-compose.yml -f deploy/docker-compose.sdr.yml \
+#     --profile full up -d --build
+#
+# Full + feeder sidecars (PiAware / FR24 / ADSBx):
+#   docker compose -f deploy/docker-compose.yml -f deploy/docker-compose.sdr.yml \
+#     -f deploy/docker-compose.feeders.yml \
+#     --profile full --profile feeders up -d --build
+
+services:
+  readsb:
+    image: ghcr.io/sdr-enthusiasts/docker-readsb-protobuf:latest
+    profiles: ["full", "with-readsb"]
+    environment:
+      READSB_DEVICE_TYPE: ${READSB_DEVICE_TYPE:-rtlsdr}
+      READSB_LAT: "${LAT:-52.52}"
+      READSB_LON: "${LON:-13.405}"
+      READSB_NET_ENABLE: "true"
+      READSB_NET_BEASTOUTPUT_PORT: "30005"
+    ports:
+      - "30005:30005"
+    restart: unless-stopped
+
+  flyscanner:
+    build:
+      context: ..
+      dockerfile: deploy/Dockerfile
+    profiles: ["full", "with-readsb"]
+    ports:
+      - "8080:8080"
+      - "30004:30004"
+    environment:
+      FLYSCANNER_LISTEN: "0.0.0.0:8080"
+      FLYSCANNER_BEAST_HOST: readsb
+      FLYSCANNER_BEAST_PORT: "30005"
+      FLYSCANNER_BEAST_OUT: "0.0.0.0:30004"
+      FLYSCANNER_LAT: "${LAT:-52.52}"
+      FLYSCANNER_LON: "${LON:-13.405}"
+      FLYSCANNER_DB: /data/flyscanner.db
+      FLYSCANNER_AIRCRAFT_DB: /data/aircraft.csv.gz
+      FLYSCANNER_CONFIG: "${FLYSCANNER_CONFIG:-}"
+      FLYSCANNER_UUID: "${FLYSCANNER_UUID:-}"
+      RUST_LOG: flyscanner=info
+    volumes:
+      - flyscanner-data:/data
+    depends_on:
+      - readsb
+    restart: unless-stopped
+
+  # Standalone: connect to Beast on host or remote (no readsb / no USB).
+  flyscanner-beast:
+    build:
+      context: ..
+      dockerfile: deploy/Dockerfile
+    profiles: ["beast"]
+    extra_hosts:
+      - "host.docker.internal:host-gateway"
+    ports:
+      - "8080:8080"
+      - "30004:30004"
+    environment:
+      FLYSCANNER_LISTEN: "0.0.0.0:8080"
+      FLYSCANNER_BEAST_HOST: "${FLYSCANNER_BEAST_HOST:-host.docker.internal}"
+      FLYSCANNER_BEAST_PORT: "${FLYSCANNER_BEAST_PORT:-30005}"
+      FLYSCANNER_BEAST_OUT: "0.0.0.0:30004"
+      FLYSCANNER_LAT: "${LAT:-52.52}"
+      FLYSCANNER_LON: "${LON:-13.405}"
+      FLYSCANNER_DB: /data/flyscanner.db
+      FLYSCANNER_AIRCRAFT_DB: /data/aircraft.csv.gz
+      FLYSCANNER_CONFIG: "${FLYSCANNER_CONFIG:-}"
+      FLYSCANNER_UUID: "${FLYSCANNER_UUID:-}"
+      RUST_LOG: flyscanner=info
+    volumes:
+      - flyscanner-data:/data
+    restart: unless-stopped
+
+  flyscanner-demo:
+    build:
+      context: ..
+      dockerfile: deploy/Dockerfile
+    profiles: ["demo"]
+    ports:
+      - "8080:8080"
+      - "30004:30004"
+    environment:
+      FLYSCANNER_DEMO: "true"
+      FLYSCANNER_LISTEN: "0.0.0.0:8080"
+      FLYSCANNER_BEAST_OUT: "0.0.0.0:30004"
+      FLYSCANNER_LAT: "${LAT:-52.52}"
+      FLYSCANNER_LON: "${LON:-13.405}"
+      FLYSCANNER_DB: /data/flyscanner.db
+      FLYSCANNER_AIRCRAFT_DB: /data/aircraft.csv.gz
+      FLYSCANNER_CONFIG: "${FLYSCANNER_CONFIG:-}"
+      FLYSCANNER_UUID: "${FLYSCANNER_UUID:-}"
+      RUST_LOG: flyscanner=info
+    volumes:
+      - flyscanner-data:/data
+    restart: unless-stopped
+
+volumes:
+  flyscanner-data:

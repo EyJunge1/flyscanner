@@ -1,0 +1,6 @@
+include = ["Cargo.toml", "clippy.toml", "rustfmt.toml"]
+
+[formatting]
+reorder_keys = false
+align_entries = false
+compact_arrays = true

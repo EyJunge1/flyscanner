@@ -1,0 +1,54 @@
+# Optional feeder sidecars (PiAware / FR24 / ADSBx). Set secrets in `.env`.
+#
+#   cp .env.example .env
+#   docker compose -f deploy/docker-compose.yml -f deploy/docker-compose.sdr.yml \
+#     -f deploy/docker-compose.feeders.yml \
+#     --profile full --profile feeders up -d --build
+#
+# Beast from Flyscanner :30004 (or BEASTHOST=readsb BEASTPORT=30005).
+# Aggregator Beast-out can also use FLYSCANNER_CONFIG without these sidecars.
+
+services:
+  piaware:
+    image: ghcr.io/sdr-enthusiasts/docker-piaware:latest
+    profiles: ["feeders"]
+    restart: unless-stopped
+    environment:
+      BEASTHOST: ${BEASTHOST:-flyscanner}
+      BEASTPORT: ${BEASTPORT:-30004}
+      LAT: ${LAT:-52.52}
+      LONG: ${LON:-13.405}
+      FEEDER_ID: ${PIAWARE_FEEDER_ID:-}
+      TZ: ${TZ:-UTC}
+    depends_on:
+      - flyscanner
+
+  fr24feed:
+    image: ghcr.io/sdr-enthusiasts/docker-flightradar24:latest
+    profiles: ["feeders"]
+    restart: unless-stopped
+    environment:
+      BEASTHOST: ${BEASTHOST:-flyscanner}
+      BEASTPORT: ${BEASTPORT:-30004}
+      FR24KEY: ${FR24KEY:-}
+      MLAT: "yes"
+      LAT: ${LAT:-52.52}
+      LONG: ${LON:-13.405}
+      TZ: ${TZ:-UTC}
+    depends_on:
+      - flyscanner
+
+  adsbx:
+    image: ghcr.io/sdr-enthusiasts/docker-adsbexchange:latest
+    profiles: ["feeders"]
+    restart: unless-stopped
+    environment:
+      BEASTHOST: ${BEASTHOST:-flyscanner}
+      BEASTPORT: ${BEASTPORT:-30004}
+      UUID: ${ADSBX_UUID:-}
+      LAT: ${LAT:-52.52}
+      LONG: ${LON:-13.405}
+      ALT: ${ALT_M:-0}
+      TZ: ${TZ:-UTC}
+    depends_on:
+      - flyscanner
