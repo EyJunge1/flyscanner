@@ -22,38 +22,35 @@ export function loadDarkUiColors() {
 	return colors;
 }
 
-export const planePaths = `
-  <path d="M17.8 19.2 16 11l3.5-3.5C21 6 21.5 4 21 3c-1-.5-3 0-4.5 1.5L13 8 4.8 6.2c-.5-.1-.9.1-1.1.5l-.3.5c-.2.5-.1 1 .3 1.3L9 12l-2 3H4l-1 1 3 2 2 3 1-1v-3l3-2 3.5 5.3c.3.4.8.5 1.3.3l.5-.2c.4-.3.6-.7.5-1.2z"/>
-`;
+/** Lucide plane path (24×24) — outline only */
+const planeD =
+	"M17.8 19.2 16 11l3.5-3.5C21 6 21.5 4 21 3c-1-.5-3 0-4.5 1.5L13 8 4.8 6.2c-.5-.1-.9.1-1.1.5l-.3.5c-.2.5-.1 1 .3 1.3L9 12l-2 3H4l-1 1 3 2 2 3 1-1v-3l3-2 3.5 5.3c.3.4.8.5 1.3.3l.5-.2c.4-.3.6-.7.5-1.2z";
 
 /**
  * Same visual recipe for both sizes:
- * logo left (rounded tile + stroke frame), title + subtitle stacked right.
+ * logo left (rounded tile), crisp outline plane, title + subtitle stacked right.
  */
 export function brandLayout({ W, H }) {
 	const ui = loadDarkUiColors();
 	const colors = {
 		bg: ui.bg,
 		surface: ui.surface,
-		border: ui.border,
 		title: ui["text-bright"],
 		muted: ui.muted,
 		accent: ui.accent,
 	};
 
-	const logo = Math.round(H * 0.32);
-	const rx = Math.round(logo * 0.22);
-	const pad = Math.round(logo * 0.188);
-	const planeScale = (logo - pad * 2) / 24;
-	// stroke is on the unscaled parent `g` (same as old banner: width 2 @ logo~68)
-	const strokePlane = Math.max(2, logo * 0.03);
-	const frameStroke = Math.max(1.5, logo * 0.02);
+	// Match original banner ratios (logo 68 / H 300, pad 10, stroke 2, scale 2)
+	const logo = Math.round(H * (68 / 300));
+	const rx = Math.round(logo * (16 / 68));
+	const pad = Math.round(logo * (10 / 68));
+	const planeScale = 2 * (logo / 68);
 
 	const title = "flyscanner";
 	const subtitle = "ADS-B ALL-IN-ONE";
-	const titleSize = Math.round(H * 0.173);
-	const subSize = Math.round(H * 0.06);
-	const gap = Math.round(logo * 0.33);
+	const titleSize = Math.round(H * (48 / 300));
+	const subSize = Math.round(H * (15 / 300));
+	const gap = Math.round(logo * (20 / 68));
 	const textBlockW = Math.round(titleSize * 10.5);
 
 	const groupW = logo + gap + textBlockW;
@@ -70,25 +67,16 @@ export function brandLayout({ W, H }) {
   <g transform="translate(${groupX}, ${groupY})">
     <rect width="${logo}" height="${logo}" rx="${rx}" fill="${colors.surface}"/>
     <rect width="${logo}" height="${logo}" rx="${rx}" fill="${colors.accent}" fill-opacity="0.15"/>
-    <rect
-      x="${frameStroke / 2}"
-      y="${frameStroke / 2}"
-      width="${logo - frameStroke}"
-      height="${logo - frameStroke}"
-      rx="${Math.max(0, rx - frameStroke / 2)}"
-      fill="none"
-      stroke="${colors.border}"
-      stroke-width="${frameStroke}"
-    />
-    <g
-      transform="translate(${pad}, ${pad})"
-      stroke="${colors.accent}"
-      stroke-width="${strokePlane}"
-      stroke-linecap="round"
-      stroke-linejoin="round"
-      fill="none"
-    >
-      <g transform="scale(${planeScale})">${planePaths}</g>
+    <g transform="translate(${pad}, ${pad}) scale(${planeScale})">
+      <path
+        d="${planeD}"
+        fill="none"
+        stroke="${colors.accent}"
+        stroke-width="2"
+        stroke-linecap="round"
+        stroke-linejoin="round"
+        vector-effect="non-scaling-stroke"
+      />
     </g>
   </g>
 
