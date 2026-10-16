@@ -62,7 +62,7 @@
 			<button
 				type="button"
 				class="rounded px-2 py-1 text-[11px] capitalize
-				{fleet.bottomTableTab === tab ? 'bg-cyan-900/40 text-cyan-100' : 'text-slate-500 hover:text-slate-300'}"
+				{fleet.bottomTableTab === tab ? 'bg-sky-900/40 text-sky-100' : 'text-slate-500 hover:text-slate-300'}"
 				onclick={() => {
 					fleet.bottomTableTab = tab;
 					fleet.showBottomTable = true;
@@ -89,12 +89,12 @@
 				{#if fleet.bottomTableTab === 'search'}
 					<div class="flex gap-2 border-b border-slate-800/80 px-2 py-1.5">
 						<input
-							class="min-w-0 flex-1 rounded border border-slate-700 bg-slate-900 px-2 py-1 text-[11px] outline-none focus:border-cyan-600"
+							class="min-w-0 flex-1 rounded border border-slate-700 bg-slate-900 px-2 py-1 text-[11px] outline-none focus:border-sky-600"
 							placeholder="Search…"
 							bind:value={fleet.searchQuery}
 						/>
 						<input
-							class="w-44 rounded border border-slate-700 bg-slate-900 px-2 py-1 text-[11px] outline-none focus:border-cyan-600"
+							class="w-44 rounded border border-slate-700 bg-slate-900 px-2 py-1 text-[11px] outline-none focus:border-sky-600"
 							placeholder="Jump lat,lon / callsign"
 							bind:value={fleet.jumpQuery}
 							onkeydown={(e) => e.key === 'Enter' && fleet.jumpToQuery()}
@@ -118,7 +118,7 @@
 								{#each colMeta as c (c.id)}
 									{#if fleet.tableCols[c.id]}
 										<th class="px-1.5 py-1">
-											<button type="button" class="hover:text-cyan-300" onclick={() => fleet.toggleSort(c.sort)}>
+											<button type="button" class="hover:text-sky-300" onclick={() => fleet.toggleSort(c.sort)}>
 												{c.label}{fleet.sortKey === c.sort
 													? fleet.sortDir === 'asc'
 														? ' ↑'
@@ -134,7 +134,7 @@
 							{#each fleet.list as a (a.icao24)}
 								<tr
 									class="cursor-pointer border-b border-slate-800/40 hover:bg-slate-800/50
-									{fleet.selected.has(a.icao24) ? 'bg-cyan-950/50' : ''}"
+									{fleet.selected.has(a.icao24) ? 'bg-sky-950/50' : ''}"
 									onclick={(e) => fleet.select(a.icao24, e.shiftKey)}
 								>
 									{#each colMeta as c (c.id)}
@@ -157,7 +157,7 @@
 						Super Filter is open on the map
 						<button
 							type="button"
-							class="text-cyan-400 hover:underline"
+							class="text-sky-400 hover:underline"
 							onclick={() => (fleet.showFilterPanel = true)}>Show filter panel</button
 						>
 					</p>
@@ -185,7 +185,7 @@
 						<p class="value">{fleet.stats.max_range_nm.toFixed(0)} nm</p>
 					</div>
 					<div class="col-span-2 md:col-span-4">
-						<Chart points={fleet.rateSeries} color="#22d3ee" label="Message rate" unit="msg/s" />
+						<Chart points={fleet.rateSeries} label="Message rate" unit="msg/s" />
 					</div>
 				</div>
 			{/if}

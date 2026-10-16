@@ -5,7 +5,7 @@
 
 Modernes ADS-B All-in-One: **Rust** (Beast → rs1090 → State → axum) + **Svelte 5** (MapLibre). History lokal mit **Turso/libSQL**. Demodulation bleibt bei **readsb**.
 
-Läuft auf **Linux, macOS, Windows / Windows Server** (nativ) und **Docker**. Details: [docs/PLATFORMS.md](docs/PLATFORMS.md).
+Läuft auf **Linux, macOS, Windows / Windows Server** (nativ) und **Docker**. Details: [docs/PLATFORMS.md](docs/PLATFORMS.md). UI-Farben (CSS): [docs/COLORS.md](docs/COLORS.md).
 
 ## Quick start
 

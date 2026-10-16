@@ -230,6 +230,11 @@
 	const HEAT_SOURCE = 'heatmap';
 	const PTRACK_SOURCE = 'ptracks';
 
+	/** MapLibre needs resolved CSS colors from `layout.css`. */
+	function cssVar(name: string): string {
+		return getComputedStyle(document.documentElement).getPropertyValue(name).trim();
+	}
+
 	function basemapStyle(id: typeof fleet.basemap): string | StyleSpecification {
 		const b = BASEMAPS[id];
 		if (b.kind === 'style') return b.url;
@@ -257,7 +262,7 @@
 				id: 'range-rings-line',
 				type: 'line',
 				source: RING_SOURCE,
-				paint: { 'line-color': '#0e7490', 'line-width': 1, 'line-opacity': 0.45 }
+				paint: { 'line-color': cssVar('--ui-accent'), 'line-width': 1, 'line-opacity': 0.35 }
 			});
 		}
 		if (!map.getSource(TRAIL_SOURCE)) {
@@ -267,9 +272,9 @@
 				type: 'line',
 				source: TRAIL_SOURCE,
 				paint: {
-					'line-color': '#0e7490',
+					'line-color': cssVar('--ui-accent'),
 					'line-width': 2.5,
-					'line-opacity': 0.85
+					'line-opacity': 0.8
 				}
 			});
 		}
@@ -281,7 +286,7 @@
 				source: HEAT_SOURCE,
 				paint: {
 					'circle-radius': 2.5,
-					'circle-color': '#f97316',
+					'circle-color': cssVar('--ui-accent'),
 					'circle-opacity': 0.35
 				},
 				layout: { visibility: fleet.showHeatmap ? 'visible' : 'none' }
@@ -295,7 +300,7 @@
 				source: PTRACK_SOURCE,
 				paint: {
 					'circle-radius': 1.5,
-					'circle-color': '#6366f1',
+					'circle-color': cssVar('--ui-muted'),
 					'circle-opacity': 0.4
 				},
 				layout: { visibility: fleet.showPtracks ? 'visible' : 'none' }
@@ -594,7 +599,7 @@
 		<div
 			class="pointer-events-none absolute bottom-16 left-1/2 z-10 -translate-x-1/2 rounded-md border border-slate-700 bg-slate-950/90 px-3 py-1.5 font-mono text-[11px] text-slate-200 shadow-lg"
 		>
-			<span class="font-semibold text-cyan-200">{h.callsign ?? h.icao24}</span>
+			<span class="font-semibold text-sky-200">{h.callsign ?? h.icao24}</span>
 			<span class="text-slate-500"> · </span>
 			{h.altitude != null ? `${h.altitude} ft` : '—'}
 			<span class="text-slate-500"> · </span>
@@ -623,13 +628,13 @@
 		position: relative;
 		width: 22px;
 		height: 22px;
-		color: #0f172a;
+		color: var(--ui-surface);
 		filter: drop-shadow(0 0 1px rgb(255 255 255 / 0.7)) drop-shadow(0 1px 2px rgb(0 0 0 / 0.35));
 	}
 	:global(.ac-wrap.selected) {
-		color: #020617;
+		color: var(--ui-bg);
 		z-index: 10;
-		filter: drop-shadow(0 0 0 1.5px #22d3ee) drop-shadow(0 1px 2px rgb(0 0 0 / 0.4));
+		filter: drop-shadow(0 0 0 1.5px var(--ui-accent)) drop-shadow(0 1px 2px rgb(0 0 0 / 0.4));
 	}
 	:global(.ac-icon) {
 		display: block;

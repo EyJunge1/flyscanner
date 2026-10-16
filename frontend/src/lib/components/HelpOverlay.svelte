@@ -14,7 +14,7 @@
 			onclick={(e) => e.stopPropagation()}
 		>
 			<div class="mb-3 flex items-center justify-between">
-				<h2 class="text-sm font-semibold tracking-wide text-cyan-100 uppercase">Shortcuts</h2>
+				<h2 class="text-sm font-semibold tracking-wide text-sky-100 uppercase">Shortcuts</h2>
 				<button
 					type="button"
 					class="text-xs text-slate-500 hover:text-slate-300"
@@ -22,37 +22,37 @@
 				>
 			</div>
 			<dl class="grid grid-cols-[auto_1fr] gap-x-4 gap-y-1.5 text-xs">
-				<dt class="font-mono text-cyan-300/90">T</dt>
+				<dt class="font-mono text-sky-300/90">T</dt>
 				<dd>Trails (track lifelines)</dd>
-				<dt class="font-mono text-cyan-300/90">L</dt>
+				<dt class="font-mono text-sky-300/90">L</dt>
 				<dd>Labels</dd>
-				<dt class="font-mono text-cyan-300/90">O</dt>
+				<dt class="font-mono text-sky-300/90">O</dt>
 				<dd>Extended labels (alt/speed)</dd>
-				<dt class="font-mono text-cyan-300/90">R</dt>
+				<dt class="font-mono text-sky-300/90">R</dt>
 				<dd>Range rings</dd>
-				<dt class="font-mono text-cyan-300/90">H</dt>
+				<dt class="font-mono text-sky-300/90">H</dt>
 				<dd>Heatmap</dd>
-				<dt class="font-mono text-cyan-300/90">P</dt>
+				<dt class="font-mono text-sky-300/90">P</dt>
 				<dd>pTracks</dd>
-				<dt class="font-mono text-cyan-300/90">F</dt>
+				<dt class="font-mono text-sky-300/90">F</dt>
 				<dd>Follow selected</dd>
-				<dt class="font-mono text-cyan-300/90">G</dt>
+				<dt class="font-mono text-sky-300/90">G</dt>
 				<dd>Home (receiver)</dd>
-				<dt class="font-mono text-cyan-300/90">I</dt>
+				<dt class="font-mono text-sky-300/90">I</dt>
 				<dd>Isolate selected</dd>
-				<dt class="font-mono text-cyan-300/90">M</dt>
+				<dt class="font-mono text-sky-300/90">M</dt>
 				<dd>Cycle basemap</dd>
-				<dt class="font-mono text-cyan-300/90">B</dt>
+				<dt class="font-mono text-sky-300/90">B</dt>
 				<dd>Dim map</dd>
-				<dt class="font-mono text-cyan-300/90">[</dt>
+				<dt class="font-mono text-sky-300/90">[</dt>
 				<dd>Toggle sidebar</dd>
-				<dt class="font-mono text-cyan-300/90">Space</dt>
+				<dt class="font-mono text-sky-300/90">Space</dt>
 				<dd>Replay play/pause</dd>
-				<dt class="font-mono text-cyan-300/90">← →</dt>
+				<dt class="font-mono text-sky-300/90">← →</dt>
 				<dd>Replay step</dd>
-				<dt class="font-mono text-cyan-300/90">Esc</dt>
+				<dt class="font-mono text-sky-300/90">Esc</dt>
 				<dd>Exit replay / clear</dd>
-				<dt class="font-mono text-cyan-300/90">?</dt>
+				<dt class="font-mono text-sky-300/90">?</dt>
 				<dd>This help</dd>
 			</dl>
 		</div>

@@ -1,7 +1,7 @@
 <script lang="ts">
 	let {
 		points = [],
-		color = '#22d3ee',
+		color = 'var(--ui-accent)',
 		height = 96,
 		unit = '',
 		label = ''
@@ -72,7 +72,7 @@
 		{#if stats.path}
 			<path d={stats.path} fill="none" stroke={color} stroke-width="2" stroke-linejoin="round" />
 		{:else}
-			<text x="10" y={height / 2} fill="#64748b" font-size="11">collecting…</text>
+			<text x="10" y={height / 2} fill="var(--ui-muted)" font-size="11">collecting…</text>
 		{/if}
 	</svg>
 	<div class="flex justify-between font-mono text-[10px] text-slate-600">

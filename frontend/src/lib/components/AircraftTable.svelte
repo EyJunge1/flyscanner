@@ -52,7 +52,7 @@
 	<div class="space-y-2 border-b border-slate-800 p-2">
 		<div class="flex gap-1.5">
 			<input
-				class="min-w-0 flex-1 rounded border border-slate-700 bg-slate-900 px-2 py-1 text-[11px] outline-none focus:border-cyan-600"
+				class="min-w-0 flex-1 rounded border border-slate-700 bg-slate-900 px-2 py-1 text-[11px] outline-none focus:border-sky-600"
 				placeholder="Search hex / callsign / reg / type"
 				bind:value={fleet.searchQuery}
 			/>
@@ -60,7 +60,7 @@
 		</div>
 		<div class="flex gap-1.5">
 			<input
-				class="min-w-0 flex-1 rounded border border-slate-700 bg-slate-900 px-2 py-1 text-[11px] outline-none focus:border-cyan-600"
+				class="min-w-0 flex-1 rounded border border-slate-700 bg-slate-900 px-2 py-1 text-[11px] outline-none focus:border-sky-600"
 				placeholder="Jump: lat, lon or callsign"
 				bind:value={fleet.jumpQuery}
 				onkeydown={(e) => {
@@ -106,7 +106,7 @@
 							<th class="px-1.5 py-1 font-medium">
 								<button
 									type="button"
-									class="hover:text-cyan-300"
+									class="hover:text-sky-300"
 									onclick={() => fleet.toggleSort(c.sort)}
 								>
 									{c.label}{fleet.sortKey === c.sort ? (fleet.sortDir === 'asc' ? ' ↑' : ' ↓') : ''}
@@ -120,7 +120,7 @@
 				{#each fleet.list as a (a.icao24)}
 					<tr
 						class="cursor-pointer border-b border-slate-800/50 hover:bg-slate-800/50
-						{fleet.selected.has(a.icao24) ? 'bg-cyan-950/40' : ''}"
+						{fleet.selected.has(a.icao24) ? 'bg-sky-950/40' : ''}"
 						onclick={(e) => fleet.select(a.icao24, e.shiftKey)}
 					>
 						{#each colMeta as c (c.id)}

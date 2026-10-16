@@ -20,14 +20,14 @@
 	>
 		<div class="flex shrink-0 items-start justify-between gap-2 border-b border-slate-800 px-3 py-2.5">
 			<div class="min-w-0">
-				<p class="truncate font-mono text-base font-semibold text-cyan-100">
+				<p class="truncate font-mono text-base font-semibold text-sky-100">
 					{a.callsign ?? a.registration ?? a.icao24}
 				</p>
 				<p class="font-mono text-[10px] text-slate-500 uppercase">
 					Hex: {a.icao24}
 					<button
 						type="button"
-						class="ml-1 inline text-cyan-600 hover:text-cyan-400"
+						class="ml-1 inline text-sky-600 hover:text-sky-400"
 						onclick={() => fleet.copyLink(a)}
 						title="Copy link"
 					>
@@ -64,7 +64,7 @@
 					Altitude lifeline
 				</h3>
 				{#if altSeries.length >= 2}
-					<Sparkline points={altSeries} color="#22d3ee" height={56} />
+					<Sparkline points={altSeries} height={56} />
 					<p class="mt-0.5 text-[10px] text-slate-500">
 						{altSeries[0]?.[1]} → {altSeries[altSeries.length - 1]?.[1]} ft · {altSeries.length} pts
 					</p>

@@ -1,11 +1,37 @@
 @import 'tailwindcss';
 @import 'maplibre-gl/dist/maplibre-gl.css';
 
+/* Minimal semantic palette — single source of truth (see docs/COLORS.md)
+   Neutrals from opencode-mem dark shell; accent = sky blue (not violet). */
+:root {
+	--ui-bg: #0a0a0a;
+	--ui-surface: #141414;
+	--ui-border: #2a2a2a;
+	--ui-text: #d4d4d4;
+	--ui-muted: #8a8a8a;
+	--ui-accent: #38bdf8;
+	--ui-ok: #34d399;
+	--ui-danger: #f44336;
+	--ui-warn: #f0b429;
+}
+
+@theme {
+	--color-bg: var(--ui-bg);
+	--color-surface: var(--ui-surface);
+	--color-border: var(--ui-border);
+	--color-text: var(--ui-text);
+	--color-muted: var(--ui-muted);
+	--color-accent: var(--ui-accent);
+	--color-ok: var(--ui-ok);
+	--color-danger: var(--ui-danger);
+	--color-warn: var(--ui-warn);
+}
+
 html,
 body {
 	margin: 0;
 	height: 100%;
-	background: #020617;
+	background: var(--ui-bg);
 	font-family:
 		'Segoe UI',
 		ui-sans-serif,
@@ -24,9 +50,9 @@ body {
 }
 
 .maplibregl-ctrl-group {
-	border: 1px solid rgb(51 65 85) !important;
+	border: 1px solid var(--ui-border) !important;
 	border-radius: 0.5rem !important;
-	background: rgb(15 23 42 / 0.9) !important;
+	background: color-mix(in srgb, var(--ui-surface) 90%, transparent) !important;
 	box-shadow: 0 4px 12px rgb(0 0 0 / 0.35) !important;
 	backdrop-filter: blur(6px);
 	overflow: hidden;
@@ -39,16 +65,16 @@ body {
 }
 
 .maplibregl-ctrl-group button + button {
-	border-top: 1px solid rgb(51 65 85) !important;
+	border-top: 1px solid var(--ui-border) !important;
 }
 
 .maplibregl-ctrl-group button:hover {
-	background-color: rgb(30 41 59 / 0.95) !important;
+	background-color: color-mix(in srgb, var(--ui-surface) 70%, white) !important;
 }
 
 .maplibregl-ctrl-group button:focus {
 	outline: none !important;
-	box-shadow: inset 0 0 0 1px rgb(8 145 178 / 0.6) !important;
+	box-shadow: inset 0 0 0 1px color-mix(in srgb, var(--ui-accent) 60%, transparent) !important;
 }
 
 .maplibregl-ctrl-group button:disabled {
@@ -73,18 +99,18 @@ body {
 
 .maplibregl-ctrl-attrib {
 	font-size: 10px;
-	background: rgb(15 23 42 / 0.85) !important;
-	color: rgb(148 163 184) !important;
+	background: color-mix(in srgb, var(--ui-surface) 85%, transparent) !important;
+	color: var(--ui-muted) !important;
 	border-radius: 0.35rem;
 	backdrop-filter: blur(4px);
 }
 
 .maplibregl-ctrl-attrib a {
-	color: rgb(103 232 249) !important;
+	color: var(--ui-accent) !important;
 }
 
 .maplibregl-ctrl-attrib a:hover {
-	color: rgb(165 243 252) !important;
+	color: color-mix(in srgb, var(--ui-accent) 70%, white) !important;
 }
 
 .chip {
@@ -92,37 +118,37 @@ body {
 	align-items: center;
 	gap: 0.25rem;
 	border-radius: 9999px;
-	border: 1px solid rgb(51 65 85);
+	border: 1px solid var(--ui-border);
 	padding: 0.2rem 0.55rem;
 	font-size: 10px;
-	color: rgb(148 163 184);
-	background: rgb(15 23 42 / 0.85);
+	color: var(--ui-muted);
+	background: color-mix(in srgb, var(--ui-surface) 85%, transparent);
 	backdrop-filter: blur(4px);
 }
 .chip.active {
-	border-color: rgb(8 145 178);
-	background: rgb(8 145 178 / 0.25);
-	color: rgb(165 243 252);
+	border-color: var(--ui-accent);
+	background: color-mix(in srgb, var(--ui-accent) 25%, transparent);
+	color: color-mix(in srgb, var(--ui-accent) 70%, white);
 }
 .chip:disabled {
 	opacity: 0.5;
 }
 .stat {
 	border-radius: 0.5rem;
-	border: 1px solid rgb(30 41 59);
-	background: rgb(15 23 42);
+	border: 1px solid var(--ui-border);
+	background: var(--ui-surface);
 	padding: 0.65rem 0.75rem;
 }
 .stat .label {
 	font-size: 10px;
 	text-transform: uppercase;
 	letter-spacing: 0.04em;
-	color: rgb(100 116 139);
+	color: var(--ui-muted);
 }
 .stat .value {
 	margin-top: 0.15rem;
 	font-family: ui-monospace, monospace;
 	font-size: 1.1rem;
 	font-weight: 600;
-	color: rgb(226 232 240);
+	color: var(--ui-text);
 }
