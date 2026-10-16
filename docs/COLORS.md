@@ -54,6 +54,6 @@ Swatches = Light | Dark.
 
 ## Regeln
 
-1. Hex-Werte **nur** in `layout.css` ändern (Banner/Favicon: Dark-Accent `#38bdf8`).
+1. Hex-Werte **nur** in `layout.css` ändern. Banner + Social Preview lesen `.dark` daraus (`npm run pics`).
 2. Markup: Token / Tailwind-Aliase — keine `sky-*` / `slate-*` Hardcodes.
 3. MapLibre-Overlays: `cssVar('--ui-…')` und bei Theme-Wechsel neu setzen.

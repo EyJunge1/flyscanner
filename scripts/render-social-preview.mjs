@@ -1,18 +1,35 @@
 /**
  * GitHub / Open Graph social preview (1280×640).
- * Layout like chaya2mqtt: icon left + stacked title/tagline, soft accent glow, no frames.
+ * Colors = dark tokens from frontend/src/routes/layout.css (same as Web-UI).
+ * Layout like chaya2mqtt: icon left + stacked title/tagline, no frames/glow.
  *
  *   node scripts/render-social-preview.mjs
  */
 import { createRequire } from "node:module";
-import { writeFileSync } from "node:fs";
+import { readFileSync, writeFileSync } from "node:fs";
 import path from "node:path";
 import { fileURLToPath, pathToFileURL } from "node:url";
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
 const root = path.resolve(__dirname, "..");
 const out = path.join(root, ".github/pics/social-preview.png");
+const cssPath = path.join(root, "frontend/src/routes/layout.css");
 const fontDir = "/tmp/jetbrains-mono/fonts/ttf";
+
+/** Parse `.dark { --ui-*: #hex; }` from layout.css — keep pics + UI in sync. */
+function loadDarkUiColors() {
+	const css = readFileSync(cssPath, "utf8");
+	const block = css.match(/\.dark\s*\{([^}]+)\}/);
+	if (!block) throw new Error(`no .dark block in ${cssPath}`);
+	const colors = {};
+	for (const m of block[1].matchAll(/--ui-([a-z0-9-]+)\s*:\s*(#[0-9a-fA-F]{3,8})\s*;/g)) {
+		colors[m[1]] = m[2].toLowerCase();
+	}
+	for (const key of ["bg", "text", "text-bright", "muted", "accent"]) {
+		if (!colors[key]) throw new Error(`missing --ui-${key} in .dark`);
+	}
+	return colors;
+}
 
 async function loadResvg() {
 	const candidates = [
@@ -32,19 +49,19 @@ async function loadResvg() {
 }
 
 const { Resvg } = await loadResvg();
+const ui = loadDarkUiColors();
 
-/** Dark tokens — chaya-style layout; flyscanner dark shell + sky accent */
 const colors = {
-	bg: "#0a0a0a",
-	text: "#ffffff",
-	muted: "#8a8a8a",
-	accent: "#38bdf8",
+	bg: ui.bg,
+	title: ui["text-bright"],
+	muted: ui.muted,
+	accent: ui.accent,
 };
 
 const W = 1280;
 const H = 640;
 
-/** Lucide "plane" (24×24 viewBox) */
+/** Lucide "plane" (24×24 viewBox) — same glyph as favicon / UI */
 const planePath =
 	"M17.8 19.2 16 11l3.5-3.5C21 6 21.5 4 21 3c-1-.5-3 0-4.5 1.5L13 8 4.8 6.2c-.5-.1-.9.1-1.1.5l-.3.5c-.2.5-.1 1 .3 1.3L9 12l-2 3H4l-1 1 3 2 2 3 1-1v-3l3-2 3.5 5.3c.3.4.8.5 1.3.3l.5-.2c.4-.3.6-.7.5-1.2z";
 
@@ -55,7 +72,6 @@ const subtitle = "MODERN ADS-B ALL-IN-ONE";
 const titleSize = 72;
 const subSize = 28;
 
-// Horizontal group centered like chaya (icon + gap + text)
 const gap = 48;
 const textBlockW = 520;
 const groupW = iconSize + gap + textBlockW;
@@ -69,13 +85,8 @@ const svg = `<?xml version="1.0" encoding="UTF-8"?>
 <svg xmlns="http://www.w3.org/2000/svg" width="${W}" height="${H}" viewBox="0 0 ${W} ${H}">
   <rect width="${W}" height="${H}" fill="${colors.bg}"/>
 
-  <!-- plane icon only — no glow/shadow -->
   <g transform="translate(${groupX}, ${groupY})">
-    <g
-      transform="scale(${iconScale})"
-      fill="${colors.accent}"
-      stroke="none"
-    >
+    <g transform="scale(${iconScale})" fill="${colors.accent}" stroke="none">
       <path d="${planePath}"/>
     </g>
   </g>
@@ -87,7 +98,7 @@ const svg = `<?xml version="1.0" encoding="UTF-8"?>
     font-family="JetBrains Mono"
     font-weight="700"
     font-size="${titleSize}"
-    fill="${colors.text}"
+    fill="${colors.title}"
     dominant-baseline="middle"
   >${title}</text>
 
@@ -120,3 +131,4 @@ const resvg = new Resvg(svg, {
 
 writeFileSync(out, resvg.render().asPng());
 console.log("wrote", out, `${resvg.width}x${resvg.height}`);
+console.log("colors from layout.css .dark:", colors);
