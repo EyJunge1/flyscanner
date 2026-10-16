@@ -9,13 +9,6 @@ declare global {
 		// interface Platform {}
 	}
 
-	interface ImportMetaEnv {
-		readonly VITE_SIM?: string;
-	}
-
-	interface ImportMeta {
-		readonly env: ImportMetaEnv;
-	}
 }
 
 export {};

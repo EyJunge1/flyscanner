@@ -12,7 +12,7 @@ import type {
 	TrackPoint
 } from './types';
 
-export const isSim = () => import.meta.env.VITE_SIM === 'true';
+export const isSim = () => import.meta.env.MODE === 'sim';
 
 const CENTER_LAT = 52.52;
 const CENTER_LON = 13.405;
