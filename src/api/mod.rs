@@ -54,7 +54,7 @@ pub fn new_state(
         ws_tx: tx,
         receiver_lat,
         receiver_lon,
-        // ~2h @ 1 Hz — graphs1090-ähnliche Live-Charts in der UI
+        // ~2h @ 1 Hz — graphs1090-style live charts in the UI
         rate_series: Arc::new(RwLock::new(TimeSeries::new(7200))),
         aircraft_series: Arc::new(RwLock::new(TimeSeries::new(7200))),
         range_series: Arc::new(RwLock::new(TimeSeries::new(7200))),

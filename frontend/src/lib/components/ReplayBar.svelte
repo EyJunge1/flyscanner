@@ -40,7 +40,7 @@
 
 			{#if fleet.replaySnapshots.length === 0}
 				<p class="text-muted text-center text-xs">
-					Keine Snapshots in den letzten {fleet.replayHours}h — History läuft weiter im Hintergrund.
+					No snapshots in the last {fleet.replayHours}h — history keeps collecting in the background.
 				</p>
 			{:else}
 				<input
