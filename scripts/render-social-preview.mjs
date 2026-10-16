@@ -1,5 +1,6 @@
 /**
- * GitHub / Open Graph social preview (1280×640) — same brand layout as banner.
+ * GitHub / Open Graph social preview — 2× Retina (2560×1280, aspect 2:1).
+ * GitHub recommends 1280×640; 2× stays sharp on HiDPI (< 1 MB limit).
  *
  *   node scripts/render-social-preview.mjs
  */
@@ -28,10 +29,12 @@ async function loadResvg() {
 
 const { Resvg } = await loadResvg();
 const out = path.join(root, ".github/pics/social-preview.png");
-const { svg, colors } = brandLayout({ W: 1280, H: 640 });
+const W = 2560;
+const H = 1280;
+const { svg, colors } = brandLayout({ W, H });
 
 const resvg = new Resvg(svg, {
-	fitTo: { mode: "width", value: 1280 },
+	fitTo: { mode: "width", value: W },
 	font: {
 		fontFiles: [
 			`${fontDir}/JetBrainsMono-Bold.ttf`,

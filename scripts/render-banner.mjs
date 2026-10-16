@@ -1,5 +1,5 @@
 /**
- * GitHub README banner (1200×300) — same brand layout as social preview.
+ * GitHub README banner — 2× Retina (2400×600).
  *
  *   node scripts/render-banner.mjs
  */
@@ -28,10 +28,12 @@ async function loadResvg() {
 
 const { Resvg } = await loadResvg();
 const out = path.join(root, ".github/pics/banner.png");
-const { svg } = brandLayout({ W: 1200, H: 300 });
+const W = 2400;
+const H = 600;
+const { svg } = brandLayout({ W, H });
 
 const resvg = new Resvg(svg, {
-	fitTo: { mode: "width", value: 1200 },
+	fitTo: { mode: "width", value: W },
 	font: {
 		fontFiles: [
 			`${fontDir}/JetBrainsMono-Bold.ttf`,
