@@ -4,14 +4,27 @@
  * and @resvg/resvg-js (e.g. from opencode-mem/web/node_modules).
  */
 import { createRequire } from "node:module";
-import { writeFileSync } from "node:fs";
+import { readFileSync, writeFileSync } from "node:fs";
 import path from "node:path";
 import { fileURLToPath, pathToFileURL } from "node:url";
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
 const root = path.resolve(__dirname, "..");
 const out = path.join(root, ".github/pics/banner.png");
+const cssPath = path.join(root, "frontend/src/routes/layout.css");
 const fontDir = "/tmp/jetbrains-mono/fonts/ttf";
+
+/** Parse `.dark { --ui-*: #hex; }` from layout.css — keep pics + UI in sync. */
+function loadDarkUiColors() {
+	const css = readFileSync(cssPath, "utf8");
+	const block = css.match(/\.dark\s*\{([^}]+)\}/);
+	if (!block) throw new Error(`no .dark block in ${cssPath}`);
+	const colors = {};
+	for (const m of block[1].matchAll(/--ui-([a-z0-9-]+)\s*:\s*(#[0-9a-fA-F]{3,8})\s*;/g)) {
+		colors[m[1]] = m[2].toLowerCase();
+	}
+	return colors;
+}
 
 async function loadResvg() {
 	const candidates = [
@@ -31,14 +44,14 @@ async function loadResvg() {
 }
 
 const { Resvg } = await loadResvg();
+const ui = loadDarkUiColors();
 
-/** Keep in sync with frontend/src/routes/layout.css */
 const colors = {
-	panel: "#111111",
-	card: "#141414",
-	foregroundBright: "#ffffff",
-	muted: "#8a8a8a",
-	primary: "#38bdf8", // sky accent
+	panel: ui.sidebar ?? ui.bg,
+	card: ui.surface,
+	foregroundBright: ui["text-bright"],
+	muted: ui.muted,
+	primary: ui.accent,
 };
 
 const W = 1200;
