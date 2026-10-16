@@ -125,7 +125,7 @@
 						['!=', ['get', 'maritime'], 1]
 					],
 					paint: {
-						'line-color': '#e2e8f0',
+						'line-color': '#d4d4d4',
 						'line-opacity': 0.5,
 						'line-width': [
 							'interpolate',
@@ -166,8 +166,8 @@
 						'text-allow-overlap': false
 					},
 					paint: {
-						'text-color': '#f8fafc',
-						'text-halo-color': 'rgba(15, 23, 42, 0.9)',
+						'text-color': '#ffffff',
+						'text-halo-color': '#0a0a0a',
 						'text-halo-width': 1.75
 					}
 				},
@@ -197,8 +197,8 @@
 						'text-padding': 4
 					},
 					paint: {
-						'text-color': '#f1f5f9',
-						'text-halo-color': 'rgba(15, 23, 42, 0.85)',
+						'text-color': '#d4d4d4',
+						'text-halo-color': '#0a0a0a',
 						'text-halo-width': 1.4
 					}
 				}
@@ -212,8 +212,11 @@
 	import { Map as MapLibreMap, Marker, NavigationControl, type GeoJSONSource } from 'maplibre-gl';
 	import '../maplibre';
 	import { fleet } from '../store.svelte';
+	import { createTheme } from '../theme.svelte';
 	import type { Aircraft } from '../types';
 	import MapToolbar from './MapToolbar.svelte';
+
+	const themeStore = createTheme();
 
 	let wrapper: HTMLDivElement | undefined = $state();
 	let container: HTMLDivElement | undefined = $state();
@@ -310,6 +313,24 @@
 		updateTrails(fleet.list);
 	}
 
+	function syncOverlayColors() {
+		if (!map) return;
+		const accent = cssVar('--ui-accent');
+		const muted = cssVar('--ui-muted');
+		if (map.getLayer('range-rings-line')) {
+			map.setPaintProperty('range-rings-line', 'line-color', accent);
+		}
+		if (map.getLayer('trails-line')) {
+			map.setPaintProperty('trails-line', 'line-color', accent);
+		}
+		if (map.getLayer('heatmap-layer')) {
+			map.setPaintProperty('heatmap-layer', 'circle-color', accent);
+		}
+		if (map.getLayer('ptracks-layer')) {
+			map.setPaintProperty('ptracks-layer', 'circle-color', muted);
+		}
+	}
+
 	onMount(() => {
 		if (!wrapper || !container) return;
 
@@ -404,6 +425,11 @@
 		map.once('style.load', () => {
 			map?.jumpTo({ center, zoom });
 		});
+	});
+
+	$effect(() => {
+		void themeStore.theme;
+		syncOverlayColors();
 	});
 
 	$effect(() => {
@@ -597,21 +623,21 @@
 		{@const h = fleet.hoveredAircraft}
 		{@const d = fleet.distanceNm(h)}
 		<div
-			class="pointer-events-none absolute bottom-16 left-1/2 z-10 -translate-x-1/2 rounded-md border border-slate-700 bg-slate-950/90 px-3 py-1.5 font-mono text-[11px] text-slate-200 shadow-lg"
+			class="pointer-events-none absolute bottom-16 left-1/2 z-10 -translate-x-1/2 rounded-md border border-border bg-bg/90 px-3 py-1.5 font-mono text-[11px] text-text shadow-lg"
 		>
-			<span class="font-semibold text-sky-200">{h.callsign ?? h.icao24}</span>
-			<span class="text-slate-500"> · </span>
+			<span class="font-semibold text-accent">{h.callsign ?? h.icao24}</span>
+			<span class="text-muted"> · </span>
 			{h.altitude != null ? `${h.altitude} ft` : '—'}
-			<span class="text-slate-500"> · </span>
+			<span class="text-muted"> · </span>
 			{h.groundspeed != null ? `${h.groundspeed.toFixed(0)} kt` : '—'}
-			<span class="text-slate-500"> · </span>
+			<span class="text-muted"> · </span>
 			{h.source}
 			{#if d != null}
-				<span class="text-slate-500"> · </span>
+				<span class="text-muted"> · </span>
 				{d.toFixed(1)} nmi
 			{/if}
 			{#if h.rssi != null}
-				<span class="text-slate-500"> · </span>
+				<span class="text-muted"> · </span>
 				{h.rssi.toFixed(1)} dB
 			{/if}
 		</div>
@@ -648,8 +674,8 @@
 		transform: translateX(-50%);
 		padding: 1px 4px;
 		border-radius: 3px;
-		background: rgb(15 23 42 / 0.75);
-		color: #f8fafc;
+		background: color-mix(in srgb, var(--ui-surface) 75%, transparent);
+		color: var(--ui-text-bright);
 		font:
 			600 10px/1.2 ui-monospace,
 			ui-sans-serif,

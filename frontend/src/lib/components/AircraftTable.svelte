@@ -49,10 +49,10 @@
 </script>
 
 <div class="flex min-h-0 flex-1 flex-col">
-	<div class="space-y-2 border-b border-slate-800 p-2">
+	<div class="space-y-2 border-b border-border p-2">
 		<div class="flex gap-1.5">
 			<input
-				class="min-w-0 flex-1 rounded border border-slate-700 bg-slate-900 px-2 py-1 text-[11px] outline-none focus:border-sky-600"
+				class="min-w-0 flex-1 rounded border border-border bg-surface px-2 py-1 text-[11px] outline-none focus:border-accent"
 				placeholder="Search hex / callsign / reg / type"
 				bind:value={fleet.searchQuery}
 			/>
@@ -60,7 +60,7 @@
 		</div>
 		<div class="flex gap-1.5">
 			<input
-				class="min-w-0 flex-1 rounded border border-slate-700 bg-slate-900 px-2 py-1 text-[11px] outline-none focus:border-sky-600"
+				class="min-w-0 flex-1 rounded border border-border bg-surface px-2 py-1 text-[11px] outline-none focus:border-accent"
 				placeholder="Jump: lat, lon or callsign"
 				bind:value={fleet.jumpQuery}
 				onkeydown={(e) => {
@@ -81,8 +81,8 @@
 				</button>
 			{/each}
 		</div>
-		<details class="text-[10px] text-slate-500">
-			<summary class="cursor-pointer hover:text-slate-300">Columns</summary>
+		<details class="text-[10px] text-muted">
+			<summary class="cursor-pointer hover:text-text">Columns</summary>
 			<div class="mt-1 flex flex-wrap gap-x-3 gap-y-1">
 				{#each colMeta as c (c.id)}
 					<label class="inline-flex items-center gap-1">
@@ -92,21 +92,21 @@
 				{/each}
 			</div>
 		</details>
-		<p class="text-[10px] text-slate-500">
+		<p class="text-[10px] text-muted">
 			Total: {fleet.stats.aircraft_current} · Listed: {fleet.list.length}
 		</p>
 	</div>
 
 	<div class="min-h-0 flex-1 overflow-auto">
 		<table class="w-full border-collapse text-left text-[10px]">
-			<thead class="sticky top-0 z-[1] bg-slate-950">
-				<tr class="border-b border-slate-800 text-slate-500">
+			<thead class="sticky top-0 z-[1] bg-bg">
+				<tr class="border-b border-border text-muted">
 					{#each colMeta as c (c.id)}
 						{#if fleet.tableCols[c.id]}
 							<th class="px-1.5 py-1 font-medium">
 								<button
 									type="button"
-									class="hover:text-sky-300"
+									class="hover:text-accent"
 									onclick={() => fleet.toggleSort(c.sort)}
 								>
 									{c.label}{fleet.sortKey === c.sort ? (fleet.sortDir === 'asc' ? ' ↑' : ' ↓') : ''}
@@ -119,19 +119,19 @@
 			<tbody>
 				{#each fleet.list as a (a.icao24)}
 					<tr
-						class="cursor-pointer border-b border-slate-800/50 hover:bg-slate-800/50
-						{fleet.selected.has(a.icao24) ? 'bg-sky-950/40' : ''}"
+						class="cursor-pointer border-b border-border/50 hover:bg-surface-hover/80
+						{fleet.selected.has(a.icao24) ? 'bg-accent/10' : ''}"
 						onclick={(e) => fleet.select(a.icao24, e.shiftKey)}
 					>
 						{#each colMeta as c (c.id)}
 							{#if fleet.tableCols[c.id]}
-								<td class="px-1.5 py-1 font-mono text-slate-300">{cell(a, c.id)}</td>
+								<td class="px-1.5 py-1 font-mono text-text">{cell(a, c.id)}</td>
 							{/if}
 						{/each}
 					</tr>
 				{:else}
 					<tr>
-						<td class="px-3 py-8 text-center text-slate-500" colspan="9">No aircraft</td>
+						<td class="px-3 py-8 text-center text-muted" colspan="9">No aircraft</td>
 					</tr>
 				{/each}
 			</tbody>

@@ -22,15 +22,15 @@
 
 {#if fleet.replayMode}
 	<div
-		class="pointer-events-auto absolute inset-x-0 bottom-0 z-20 border-t border-slate-800/90 bg-slate-950/95 px-4 py-3 backdrop-blur-md"
+		class="pointer-events-auto absolute inset-x-0 bottom-0 z-20 border-t border-border/90 bg-bg/95 px-4 py-3 backdrop-blur-md"
 	>
 		<div class="mx-auto flex max-w-4xl flex-col gap-2">
-			<div class="flex items-center justify-between gap-3 text-xs text-slate-400">
-				<span class="font-medium tracking-wide text-amber-200/90 uppercase">Replay</span>
-				<span class="font-mono text-slate-300">{fmt(fleet.replayTs)}</span>
+			<div class="flex items-center justify-between gap-3 text-xs text-muted">
+				<span class="font-medium tracking-wide text-warn uppercase">Replay</span>
+				<span class="font-mono text-text">{fmt(fleet.replayTs)}</span>
 				<button
 					type="button"
-					class="rounded p-1 text-slate-400 hover:bg-slate-800 hover:text-slate-200"
+					class="rounded p-1 text-muted hover:bg-surface-hover hover:text-text-bright"
 					onclick={() => fleet.exitReplay()}
 					title="Live (Esc)"
 				>
@@ -39,7 +39,7 @@
 			</div>
 
 			{#if fleet.replaySnapshots.length === 0}
-				<p class="text-center text-xs text-slate-500">
+				<p class="text-center text-xs text-muted">
 					Keine Snapshots in den letzten {fleet.replayHours}h — History läuft weiter im Hintergrund.
 				</p>
 			{:else}
@@ -48,13 +48,13 @@
 					min="0"
 					max={Math.max(0, fleet.replaySnapshots.length - 1)}
 					value={fleet.replayIndex}
-					class="w-full accent-sky-500"
+					class="w-full accent-accent"
 					oninput={onScrub}
 				/>
 				<div class="flex items-center justify-center gap-2">
 					<button
 						type="button"
-						class="rounded-md border border-slate-700 p-1.5 text-slate-300 hover:border-sky-700"
+						class="rounded-md border border-border p-1.5 text-text hover:border-accent"
 						onclick={() => fleet.applyReplayIndex(fleet.replayIndex - 1)}
 						title="←"
 					>
@@ -62,7 +62,7 @@
 					</button>
 					<button
 						type="button"
-						class="rounded-md border border-slate-700 px-3 py-1.5 text-slate-200 hover:border-sky-700"
+						class="rounded-md border border-border px-3 py-1.5 text-text hover:border-accent"
 						onclick={() => fleet.toggleReplayPlayback()}
 						title="Space"
 					>
@@ -74,13 +74,13 @@
 					</button>
 					<button
 						type="button"
-						class="rounded-md border border-slate-700 p-1.5 text-slate-300 hover:border-sky-700"
+						class="rounded-md border border-border p-1.5 text-text hover:border-accent"
 						onclick={() => fleet.applyReplayIndex(fleet.replayIndex + 1)}
 						title="→"
 					>
 						<SkipForward size={14} />
 					</button>
-					<span class="ml-2 font-mono text-[11px] text-slate-500">
+					<span class="ml-2 font-mono text-[11px] text-muted">
 						{fleet.replayIndex + 1}/{fleet.replaySnapshots.length}
 					</span>
 				</div>

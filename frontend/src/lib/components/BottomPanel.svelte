@@ -42,13 +42,13 @@
 </script>
 
 <div
-	class="pointer-events-auto absolute right-0 bottom-0 left-0 z-20 flex flex-col border-t border-slate-700/80 bg-slate-950/95 shadow-[0_-8px_30px_rgb(0_0_0_/0.35)] backdrop-blur-md"
+	class="pointer-events-auto absolute right-0 bottom-0 left-0 z-20 flex flex-col border-t border-border/80 bg-bg/95 shadow-[0_-8px_30px_rgb(0_0_0_/0.35)] backdrop-blur-md"
 	style="height: {fleet.showBottomTable ? fleet.bottomTableHeight : 36}px"
 >
-	<div class="flex h-9 shrink-0 items-center gap-1 border-b border-slate-800 px-2">
+	<div class="flex h-9 shrink-0 items-center gap-1 border-b border-border px-2">
 		<button
 			type="button"
-			class="rounded p-1 text-slate-400 hover:bg-slate-800"
+			class="rounded p-1 text-muted hover:bg-surface-hover"
 			onclick={() => (fleet.showBottomTable = !fleet.showBottomTable)}
 			title="Toggle table"
 		>
@@ -62,7 +62,7 @@
 			<button
 				type="button"
 				class="rounded px-2 py-1 text-[11px] capitalize
-				{fleet.bottomTableTab === tab ? 'bg-sky-900/40 text-sky-100' : 'text-slate-500 hover:text-slate-300'}"
+				{fleet.bottomTableTab === tab ? 'bg-accent-soft text-accent' : 'text-muted hover:text-text'}"
 				onclick={() => {
 					fleet.bottomTableTab = tab;
 					fleet.showBottomTable = true;
@@ -74,10 +74,10 @@
 					: ''}
 			</button>
 		{/each}
-		<span class="ml-auto font-mono text-[10px] text-slate-500">
+		<span class="ml-auto font-mono text-[10px] text-muted">
 			Total: {fleet.stats.aircraft_current} · Listed: {fleet.list.length}
 			{#if fleet.connected}
-				· <span class="text-emerald-400">live</span>
+				· <span class="text-ok">live</span>
 			{/if}
 			· {fleet.stats.message_rate.toFixed(0)} msg/s
 		</span>
@@ -87,14 +87,14 @@
 		<div class="min-h-0 flex-1 overflow-hidden">
 			{#if fleet.bottomTableTab === 'search' || fleet.bottomTableTab === 'columns'}
 				{#if fleet.bottomTableTab === 'search'}
-					<div class="flex gap-2 border-b border-slate-800/80 px-2 py-1.5">
+					<div class="flex gap-2 border-b border-border/80 px-2 py-1.5">
 						<input
-							class="min-w-0 flex-1 rounded border border-slate-700 bg-slate-900 px-2 py-1 text-[11px] outline-none focus:border-sky-600"
+							class="min-w-0 flex-1 rounded border border-border bg-surface px-2 py-1 text-[11px] outline-none focus:border-accent"
 							placeholder="Search…"
 							bind:value={fleet.searchQuery}
 						/>
 						<input
-							class="w-44 rounded border border-slate-700 bg-slate-900 px-2 py-1 text-[11px] outline-none focus:border-sky-600"
+							class="w-44 rounded border border-border bg-surface px-2 py-1 text-[11px] outline-none focus:border-accent"
 							placeholder="Jump lat,lon / callsign"
 							bind:value={fleet.jumpQuery}
 							onkeydown={(e) => e.key === 'Enter' && fleet.jumpToQuery()}
@@ -102,7 +102,7 @@
 						<button type="button" class="chip" onclick={() => fleet.jumpToQuery()}>Jump</button>
 					</div>
 				{:else}
-					<div class="flex flex-wrap gap-x-3 gap-y-1 border-b border-slate-800/80 px-3 py-2 text-[10px] text-slate-400">
+					<div class="flex flex-wrap gap-x-3 gap-y-1 border-b border-border/80 px-3 py-2 text-[10px] text-muted">
 						{#each colMeta as c (c.id)}
 							<label class="inline-flex items-center gap-1">
 								<input type="checkbox" bind:checked={fleet.tableCols[c.id]} />
@@ -113,12 +113,12 @@
 				{/if}
 				<div class="h-full overflow-auto" style="max-height: calc({fleet.bottomTableHeight}px - 5rem)">
 					<table class="w-full border-collapse text-left text-[10px]">
-						<thead class="sticky top-0 bg-slate-950">
-							<tr class="border-b border-slate-800 text-slate-500">
+						<thead class="sticky top-0 bg-bg">
+							<tr class="border-b border-border text-muted">
 								{#each colMeta as c (c.id)}
 									{#if fleet.tableCols[c.id]}
 										<th class="px-1.5 py-1">
-											<button type="button" class="hover:text-sky-300" onclick={() => fleet.toggleSort(c.sort)}>
+											<button type="button" class="hover:text-accent" onclick={() => fleet.toggleSort(c.sort)}>
 												{c.label}{fleet.sortKey === c.sort
 													? fleet.sortDir === 'asc'
 														? ' ↑'
@@ -133,35 +133,35 @@
 						<tbody>
 							{#each fleet.list as a (a.icao24)}
 								<tr
-									class="cursor-pointer border-b border-slate-800/40 hover:bg-slate-800/50
-									{fleet.selected.has(a.icao24) ? 'bg-sky-950/50' : ''}"
+									class="cursor-pointer border-b border-border/40 hover:bg-surface-hover/80
+									{fleet.selected.has(a.icao24) ? 'bg-accent/15' : ''}"
 									onclick={(e) => fleet.select(a.icao24, e.shiftKey)}
 								>
 									{#each colMeta as c (c.id)}
 										{#if fleet.tableCols[c.id]}
-											<td class="px-1.5 py-0.5 font-mono text-slate-300">{cell(a, c.id)}</td>
+											<td class="px-1.5 py-0.5 font-mono text-text">{cell(a, c.id)}</td>
 										{/if}
 									{/each}
 								</tr>
 							{:else}
 								<tr>
-									<td class="px-3 py-6 text-center text-slate-500" colspan="9">No aircraft</td>
+									<td class="px-3 py-6 text-center text-muted" colspan="9">No aircraft</td>
 								</tr>
 							{/each}
 						</tbody>
 					</table>
 				</div>
 			{:else if fleet.bottomTableTab === 'filters'}
-				<div class="p-3 text-[11px] text-slate-400">
+				<div class="p-3 text-[11px] text-muted">
 					<p>
 						Super Filter is open on the map
 						<button
 							type="button"
-							class="text-sky-400 hover:underline"
+							class="text-accent hover:underline"
 							onclick={() => (fleet.showFilterPanel = true)}>Show filter panel</button
 						>
 					</p>
-					<p class="mt-2 text-slate-500">
+					<p class="mt-2 text-muted">
 						Active filters: {fleet.activeFilterCount || 'none'} · Listed {fleet.list.length}
 					</p>
 					<button type="button" class="chip mt-2" onclick={() => fleet.resetFilters()}>Reset all</button>

@@ -32,12 +32,13 @@ async function loadResvg() {
 
 const { Resvg } = await loadResvg();
 
+/** Keep in sync with frontend/src/routes/layout.css */
 const colors = {
 	panel: "#111111",
 	card: "#141414",
 	foregroundBright: "#ffffff",
 	muted: "#8a8a8a",
-	primary: "#38bdf8", // blue (opencode-mem shell uses violet; flyscanner uses sky)
+	primary: "#38bdf8", // sky accent
 };
 
 const W = 1200;
