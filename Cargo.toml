@@ -21,8 +21,8 @@ clap = { version = "4", features = ["derive", "env"] }
 flate2 = "1"
 futures = "0.3"
 hex = "0.4"
-prometheus = "0.13"
-rand = "0.9"
+prometheus = "0.14"
+rand = "0.10"
 rs1090 = "0.7"
 rust-embed = "8"
 serde = { version = "1", features = ["derive"] }
@@ -38,10 +38,10 @@ tokio = { version = "1", features = [
     "signal",
 ] }
 tokio-util = { version = "0.7", features = ["rt"] }
-tower-http = { version = "0.6", features = ["cors", "trace"] }
+tower-http = { version = "0.7", features = ["cors", "trace"] }
 tracing = "0.1"
 tracing-subscriber = { version = "0.3", features = ["env-filter"] }
-turso = "0.4.4"
+turso = "0.8.3"
 uuid = { version = "1", features = ["v4", "serde"] }
 
 [dev-dependencies]
