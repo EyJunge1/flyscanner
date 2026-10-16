@@ -39,13 +39,13 @@
 	});
 </script>
 
-<div class="relative h-dvh w-dvw overflow-hidden bg-bg text-text-bright">
+<div class="bg-bg text-text-bright relative h-dvh w-dvw overflow-hidden">
 	<main class="absolute inset-0">
 		<div class="absolute inset-0">
 			<AircraftMap />
 			{#if fleet.replayMode}
 				<div
-					class="pointer-events-none absolute top-3 left-1/2 z-30 -translate-x-1/2 rounded-full border border-warn/50 bg-warn/20 px-3 py-1 text-[11px] font-medium tracking-wide text-warn uppercase"
+					class="border-warn/50 bg-warn/20 text-warn pointer-events-none absolute top-3 left-1/2 z-30 -translate-x-1/2 rounded-full border px-3 py-1 text-[11px] font-medium tracking-wide uppercase"
 				>
 					Replay · live paused
 				</div>

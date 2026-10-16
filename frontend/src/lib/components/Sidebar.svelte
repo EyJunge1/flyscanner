@@ -12,20 +12,18 @@
 </script>
 
 <aside
-	class="pointer-events-auto flex h-full max-w-[92vw] flex-col border-r border-border/80 bg-bg/90 text-text-bright shadow-xl backdrop-blur-md transition-[width] duration-200
-	{fleet.sidebarCollapsed ? 'w-0 overflow-hidden border-0' : 'w-[26rem]'}"
+	class="border-border/80 bg-bg/90 text-text-bright pointer-events-auto flex h-full max-w-[92vw] flex-col border-r shadow-xl backdrop-blur-md transition-[width] duration-200
+	{fleet.sidebarCollapsed ? 'w-0 overflow-hidden border-0' : 'w-104'}"
 >
-	<header class="flex items-center gap-3 border-b border-border px-4 py-3">
-		<div class="flex h-9 w-9 items-center justify-center rounded-lg bg-accent/20 text-accent">
+	<header class="border-border flex items-center gap-3 border-b px-4 py-3">
+		<div class="bg-accent/20 text-accent flex h-9 w-9 items-center justify-center rounded-lg">
 			<Plane size={20} />
 		</div>
 		<div class="min-w-0 flex-1">
 			<h1 class="truncate text-lg font-semibold tracking-tight">Flyscanner</h1>
-			<p class="flex items-center gap-1.5 text-xs text-muted">
+			<p class="text-muted flex items-center gap-1.5 text-xs">
 				<span
-					class="inline-block h-1.5 w-1.5 rounded-full {fleet.connected
-						? 'bg-ok'
-						: 'bg-rose-400'}"
+					class="inline-block h-1.5 w-1.5 rounded-full {fleet.connected ? 'bg-ok' : 'bg-rose-400'}"
 				></span>
 				{fleet.connected ? 'live' : 'reconnect…'}
 				· {fleet.stats.aircraft_current} ac · {fleet.stats.message_rate.toFixed(0)} msg/s
@@ -33,7 +31,7 @@
 		</div>
 		<button
 			type="button"
-			class="shrink-0 rounded-md p-1.5 text-muted hover:bg-surface-hover hover:text-text-bright"
+			class="text-muted hover:bg-surface-hover hover:text-text-bright shrink-0 rounded-md p-1.5"
 			onclick={() => toggleTheme()}
 			aria-label={isDark ? 'Switch to light mode' : 'Switch to dark mode'}
 			title={isDark ? 'Light mode' : 'Dark mode'}
@@ -46,7 +44,7 @@
 		</button>
 	</header>
 
-	<nav class="flex gap-1 border-b border-border p-2">
+	<nav class="border-border flex gap-1 border-b p-2">
 		{#each [['fleet', 'Fleet'], ['details', 'Details'], ['stats', 'Stats']] as [id, label] (id)}
 			<button
 				class="flex-1 rounded-md px-2 py-1.5 text-xs font-medium transition
@@ -61,24 +59,24 @@
 	</nav>
 
 	{#if fleet.sidebarTab === 'fleet'}
-		<div class="space-y-2 border-b border-border p-3">
-			<div class="flex items-center gap-2 text-xs text-muted">
+		<div class="border-border space-y-2 border-b p-3">
+			<div class="text-muted flex items-center gap-2 text-xs">
 				<Filter size={14} /> Filters
 			</div>
 			<div class="grid grid-cols-2 gap-2">
 				<input
-					class="rounded-md border border-border bg-surface px-2 py-1.5 text-xs outline-none focus:border-accent"
+					class="border-border bg-surface focus:border-accent rounded-md border px-2 py-1.5 text-xs outline-none"
 					placeholder="ICAO"
 					bind:value={fleet.filterIcao}
 				/>
 				<input
-					class="rounded-md border border-border bg-surface px-2 py-1.5 text-xs outline-none focus:border-accent"
+					class="border-border bg-surface focus:border-accent rounded-md border px-2 py-1.5 text-xs outline-none"
 					placeholder="Callsign"
 					bind:value={fleet.filterCallsign}
 				/>
 				<input
 					type="number"
-					class="rounded-md border border-border bg-surface px-2 py-1.5 text-xs outline-none focus:border-accent"
+					class="border-border bg-surface focus:border-accent rounded-md border px-2 py-1.5 text-xs outline-none"
 					placeholder="Min alt"
 					value={fleet.minAlt ?? ''}
 					oninput={(e) => {
@@ -88,7 +86,7 @@
 				/>
 				<input
 					type="number"
-					class="rounded-md border border-border bg-surface px-2 py-1.5 text-xs outline-none focus:border-accent"
+					class="border-border bg-surface focus:border-accent rounded-md border px-2 py-1.5 text-xs outline-none"
 					placeholder="Max alt"
 					value={fleet.maxAlt ?? ''}
 					oninput={(e) => {
@@ -98,14 +96,14 @@
 				/>
 			</div>
 			{#if fleet.replayMode}
-				<label class="flex items-center gap-2 pt-1 text-[10px] text-muted">
+				<label class="text-muted flex items-center gap-2 pt-1 text-[10px]">
 					Replay hours
 					<input
 						type="number"
 						min="0.25"
 						max="48"
 						step="0.25"
-						class="w-16 rounded border border-border bg-surface px-1.5 py-0.5 text-xs text-text"
+						class="border-border bg-surface text-text w-16 rounded border px-1.5 py-0.5 text-xs"
 						value={fleet.replayHours}
 						onchange={async (e) => {
 							const v = Number((e.currentTarget as HTMLInputElement).value);
@@ -128,7 +126,7 @@
 		{/if}
 	{:else}
 		<div class="space-y-4 overflow-y-auto p-4">
-			<div class="flex items-center gap-2 text-sm text-text">
+			<div class="text-text flex items-center gap-2 text-sm">
 				<Activity size={16} class="text-accent" /> Live metrics
 			</div>
 			<div class="grid grid-cols-2 gap-2">
@@ -154,7 +152,7 @@
 			<Chart points={fleet.rangeSeries} color="var(--ui-ok)" label="Max range" unit="nm" />
 			<button
 				type="button"
-				class="block w-full rounded-md border border-border px-3 py-2 text-center text-xs text-muted hover:border-accent hover:text-accent"
+				class="border-border text-muted hover:border-accent hover:text-accent block w-full rounded-md border px-3 py-2 text-center text-xs"
 				onclick={() => window.open('/metrics', '_blank', 'noopener,noreferrer')}
 			>
 				Prometheus /metrics

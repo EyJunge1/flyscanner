@@ -34,7 +34,9 @@
 	);
 </script>
 
-<div class="pointer-events-auto absolute top-3 left-3 z-20 flex max-w-[min(100%-1.5rem,36rem)] flex-col gap-1.5">
+<div
+	class="pointer-events-auto absolute top-3 left-3 z-20 flex max-w-[min(100%-1.5rem,36rem)] flex-col gap-1.5"
+>
 	<div class="flex flex-wrap gap-1">
 		<button
 			type="button"
@@ -55,7 +57,13 @@
 		>
 			<Table2 size={12} /> Panel
 		</button>
-		<button type="button" class="chip" class:active={fleet.follow} onclick={() => fleet.toggleFollow()} title="F">
+		<button
+			type="button"
+			class="chip"
+			class:active={fleet.follow}
+			onclick={() => fleet.toggleFollow()}
+			title="F"
+		>
 			<Navigation size={12} /> Follow
 		</button>
 		<button type="button" class="chip" onclick={() => fleet.goHome()} title="G">
@@ -73,10 +81,22 @@
 		</button>
 	</div>
 	<div class="flex flex-wrap gap-1">
-		<button type="button" class="chip" class:active={fleet.showTrails} onclick={() => (fleet.showTrails = !fleet.showTrails)} title="T · Track lifelines">
+		<button
+			type="button"
+			class="chip"
+			class:active={fleet.showTrails}
+			onclick={() => (fleet.showTrails = !fleet.showTrails)}
+			title="T · Track lifelines"
+		>
 			<Route size={12} /> Trails
 		</button>
-		<button type="button" class="chip" class:active={fleet.showLabels} onclick={() => (fleet.showLabels = !fleet.showLabels)} title="L">
+		<button
+			type="button"
+			class="chip"
+			class:active={fleet.showLabels}
+			onclick={() => (fleet.showLabels = !fleet.showLabels)}
+			title="L"
+		>
 			Labels
 		</button>
 		<button
@@ -91,23 +111,56 @@
 		>
 			<Tags size={12} /> Ext
 		</button>
-		<button type="button" class="chip" class:active={fleet.showRangeRings} onclick={() => (fleet.showRangeRings = !fleet.showRangeRings)} title="R">
+		<button
+			type="button"
+			class="chip"
+			class:active={fleet.showRangeRings}
+			onclick={() => (fleet.showRangeRings = !fleet.showRangeRings)}
+			title="R"
+		>
 			<Radio size={12} /> Rings
 		</button>
-		<button type="button" class="chip" class:active={fleet.showHeatmap} onclick={toggleHeatmap} title="H">
+		<button
+			type="button"
+			class="chip"
+			class:active={fleet.showHeatmap}
+			onclick={toggleHeatmap}
+			title="H"
+		>
 			<Flame size={12} /> Heat
 		</button>
-		<button type="button" class="chip" class:active={fleet.showPtracks} onclick={togglePtracks} title="P">
+		<button
+			type="button"
+			class="chip"
+			class:active={fleet.showPtracks}
+			onclick={togglePtracks}
+			title="P"
+		>
 			pTracks
 		</button>
 		<button type="button" class="chip" onclick={() => fleet.cycleBasemap()} title="M">
-			<Layers size={12} /> {basemapLabel}
+			<Layers size={12} />
+			{basemapLabel}
 		</button>
-		<button type="button" class="chip" class:active={fleet.mapDim > 0} onclick={() => (fleet.mapDim = fleet.mapDim > 0 ? 0 : 0.45)} title="B">
+		<button
+			type="button"
+			class="chip"
+			class:active={fleet.mapDim > 0}
+			onclick={() => (fleet.mapDim = fleet.mapDim > 0 ? 0 : 0.45)}
+			title="B"
+		>
 			Dim
 		</button>
-		<button type="button" class="chip" class:active={fleet.replayMode} onclick={toggleReplay} disabled={fleet.replayLoading} title="Replay">
-			<History size={12} /> {fleet.replayLoading ? '…' : 'Replay'}
+		<button
+			type="button"
+			class="chip"
+			class:active={fleet.replayMode}
+			onclick={toggleReplay}
+			disabled={fleet.replayLoading}
+			title="Replay"
+		>
+			<History size={12} />
+			{fleet.replayLoading ? '…' : 'Replay'}
 		</button>
 		<button type="button" class="chip" onclick={() => (fleet.showHelp = !fleet.showHelp)} title="?">
 			<CircleHelp size={12} />

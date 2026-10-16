@@ -42,13 +42,13 @@
 </script>
 
 <div
-	class="pointer-events-auto absolute right-0 bottom-0 left-0 z-20 flex flex-col border-t border-border/80 bg-bg/95 shadow-[0_-8px_30px_rgb(0_0_0_/0.35)] backdrop-blur-md"
+	class="border-border/80 bg-bg/95 pointer-events-auto absolute right-0 bottom-0 left-0 z-20 flex flex-col border-t shadow-[0_-8px_30px_rgb(0_0_0_/0.35)] backdrop-blur-md"
 	style="height: {fleet.showBottomTable ? fleet.bottomTableHeight : 36}px"
 >
-	<div class="flex h-9 shrink-0 items-center gap-1 border-b border-border px-2">
+	<div class="border-border flex h-9 shrink-0 items-center gap-1 border-b px-2">
 		<button
 			type="button"
-			class="rounded p-1 text-muted hover:bg-surface-hover"
+			class="text-muted hover:bg-surface-hover rounded p-1"
 			onclick={() => (fleet.showBottomTable = !fleet.showBottomTable)}
 			title="Toggle table"
 		>
@@ -58,7 +58,7 @@
 				<ChevronUp size={14} />
 			{/if}
 		</button>
-		{#each (['search', 'filters', 'columns', 'stats'] as const) as tab (tab)}
+		{#each ['search', 'filters', 'columns', 'stats'] as const as tab (tab)}
 			<button
 				type="button"
 				class="rounded px-2 py-1 text-[11px] capitalize
@@ -69,12 +69,10 @@
 					if (tab === 'filters') fleet.showFilterPanel = true;
 				}}
 			>
-				{tab}{tab === 'filters' && fleet.activeFilterCount
-					? ` (${fleet.activeFilterCount})`
-					: ''}
+				{tab}{tab === 'filters' && fleet.activeFilterCount ? ` (${fleet.activeFilterCount})` : ''}
 			</button>
 		{/each}
-		<span class="ml-auto font-mono text-[10px] text-muted">
+		<span class="text-muted ml-auto font-mono text-[10px]">
 			Total: {fleet.stats.aircraft_current} · Listed: {fleet.list.length}
 			{#if fleet.connected}
 				· <span class="text-ok">live</span>
@@ -87,14 +85,14 @@
 		<div class="min-h-0 flex-1 overflow-hidden">
 			{#if fleet.bottomTableTab === 'search' || fleet.bottomTableTab === 'columns'}
 				{#if fleet.bottomTableTab === 'search'}
-					<div class="flex gap-2 border-b border-border/80 px-2 py-1.5">
+					<div class="border-border/80 flex gap-2 border-b px-2 py-1.5">
 						<input
-							class="min-w-0 flex-1 rounded border border-border bg-surface px-2 py-1 text-[11px] outline-none focus:border-accent"
+							class="border-border bg-surface focus:border-accent min-w-0 flex-1 rounded border px-2 py-1 text-[11px] outline-none"
 							placeholder="Search…"
 							bind:value={fleet.searchQuery}
 						/>
 						<input
-							class="w-44 rounded border border-border bg-surface px-2 py-1 text-[11px] outline-none focus:border-accent"
+							class="border-border bg-surface focus:border-accent w-44 rounded border px-2 py-1 text-[11px] outline-none"
 							placeholder="Jump lat,lon / callsign"
 							bind:value={fleet.jumpQuery}
 							onkeydown={(e) => e.key === 'Enter' && fleet.jumpToQuery()}
@@ -102,7 +100,9 @@
 						<button type="button" class="chip" onclick={() => fleet.jumpToQuery()}>Jump</button>
 					</div>
 				{:else}
-					<div class="flex flex-wrap gap-x-3 gap-y-1 border-b border-border/80 px-3 py-2 text-[10px] text-muted">
+					<div
+						class="border-border/80 text-muted flex flex-wrap gap-x-3 gap-y-1 border-b px-3 py-2 text-[10px]"
+					>
 						{#each colMeta as c (c.id)}
 							<label class="inline-flex items-center gap-1">
 								<input type="checkbox" bind:checked={fleet.tableCols[c.id]} />
@@ -111,14 +111,21 @@
 						{/each}
 					</div>
 				{/if}
-				<div class="h-full overflow-auto" style="max-height: calc({fleet.bottomTableHeight}px - 5rem)">
+				<div
+					class="h-full overflow-auto"
+					style="max-height: calc({fleet.bottomTableHeight}px - 5rem)"
+				>
 					<table class="w-full border-collapse text-left text-[10px]">
-						<thead class="sticky top-0 bg-bg">
-							<tr class="border-b border-border text-muted">
+						<thead class="bg-bg sticky top-0">
+							<tr class="border-border text-muted border-b">
 								{#each colMeta as c (c.id)}
 									{#if fleet.tableCols[c.id]}
 										<th class="px-1.5 py-1">
-											<button type="button" class="hover:text-accent" onclick={() => fleet.toggleSort(c.sort)}>
+											<button
+												type="button"
+												class="hover:text-accent"
+												onclick={() => fleet.toggleSort(c.sort)}
+											>
 												{c.label}{fleet.sortKey === c.sort
 													? fleet.sortDir === 'asc'
 														? ' ↑'
@@ -133,26 +140,26 @@
 						<tbody>
 							{#each fleet.list as a (a.icao24)}
 								<tr
-									class="cursor-pointer border-b border-border/40 hover:bg-surface-hover/80
+									class="border-border/40 hover:bg-surface-hover/80 cursor-pointer border-b
 									{fleet.selected.has(a.icao24) ? 'bg-accent/15' : ''}"
 									onclick={(e) => fleet.select(a.icao24, e.shiftKey)}
 								>
 									{#each colMeta as c (c.id)}
 										{#if fleet.tableCols[c.id]}
-											<td class="px-1.5 py-0.5 font-mono text-text">{cell(a, c.id)}</td>
+											<td class="text-text px-1.5 py-0.5 font-mono">{cell(a, c.id)}</td>
 										{/if}
 									{/each}
 								</tr>
 							{:else}
 								<tr>
-									<td class="px-3 py-6 text-center text-muted" colspan="9">No aircraft</td>
+									<td class="text-muted px-3 py-6 text-center" colspan="9">No aircraft</td>
 								</tr>
 							{/each}
 						</tbody>
 					</table>
 				</div>
 			{:else if fleet.bottomTableTab === 'filters'}
-				<div class="p-3 text-[11px] text-muted">
+				<div class="text-muted p-3 text-[11px]">
 					<p>
 						Super Filter is open on the map
 						<button
@@ -161,10 +168,12 @@
 							onclick={() => (fleet.showFilterPanel = true)}>Show filter panel</button
 						>
 					</p>
-					<p class="mt-2 text-muted">
+					<p class="text-muted mt-2">
 						Active filters: {fleet.activeFilterCount || 'none'} · Listed {fleet.list.length}
 					</p>
-					<button type="button" class="chip mt-2" onclick={() => fleet.resetFilters()}>Reset all</button>
+					<button type="button" class="chip mt-2" onclick={() => fleet.resetFilters()}
+						>Reset all</button
+					>
 				</div>
 			{:else}
 				<div class="grid grid-cols-2 gap-3 overflow-y-auto p-3 md:grid-cols-4">

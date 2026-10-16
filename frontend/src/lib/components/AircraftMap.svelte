@@ -88,12 +88,7 @@
 	} as const satisfies Record<string, RasterBasemap | StyleUrlBasemap | HybridBasemap>;
 
 	/** Place name: prefer local DE/EN, then generic. */
-	const PLACE_NAME = [
-		'coalesce',
-		['get', 'name:de'],
-		['get', 'name:en'],
-		['get', 'name']
-	];
+	const PLACE_NAME = ['coalesce', ['get', 'name:de'], ['get', 'name:en'], ['get', 'name']];
 
 	/** Esri imagery + OpenFreeMap vector labels (our styling, not Esri raster chrome). */
 	function satelliteHybridStyle(): StyleSpecification {
@@ -119,25 +114,11 @@
 					type: 'line',
 					source: 'openmaptiles',
 					'source-layer': 'boundary',
-					filter: [
-						'all',
-						['==', ['get', 'admin_level'], 2],
-						['!=', ['get', 'maritime'], 1]
-					],
+					filter: ['all', ['==', ['get', 'admin_level'], 2], ['!=', ['get', 'maritime'], 1]],
 					paint: {
 						'line-color': '#d4d4d4',
 						'line-opacity': 0.5,
-						'line-width': [
-							'interpolate',
-							['linear'],
-							['zoom'],
-							2,
-							0.5,
-							8,
-							1.1,
-							12,
-							1.6
-						]
+						'line-width': ['interpolate', ['linear'], ['zoom'], 2, 0.5, 8, 1.1, 12, 1.6]
 					}
 				},
 				{
@@ -150,15 +131,7 @@
 					layout: {
 						'text-field': PLACE_NAME as ExpressionSpecification,
 						'text-font': ['Noto Sans Regular'],
-						'text-size': [
-							'interpolate',
-							['linear'],
-							['zoom'],
-							2,
-							11,
-							5,
-							15
-						],
+						'text-size': ['interpolate', ['linear'], ['zoom'], 2, 11, 5, 15],
 						'text-transform': 'uppercase',
 						'text-letter-spacing': 0.06,
 						'text-max-width': 10,
@@ -181,17 +154,7 @@
 					layout: {
 						'text-field': PLACE_NAME as ExpressionSpecification,
 						'text-font': ['Noto Sans Regular'],
-						'text-size': [
-							'interpolate',
-							['linear'],
-							['zoom'],
-							5,
-							11,
-							10,
-							14,
-							14,
-							16
-						],
+						'text-size': ['interpolate', ['linear'], ['zoom'], 5, 11, 10, 14, 14, 16],
 						'text-letter-spacing': 0.02,
 						'text-max-width': 8,
 						'text-padding': 4
@@ -338,9 +301,7 @@
 		map = new MapLibreMap({
 			container,
 			style: basemapStyle(fleet.basemap),
-			center: iv
-				? [iv.lon, iv.lat]
-				: [fleet.config.receiver_lon, fleet.config.receiver_lat],
+			center: iv ? [iv.lon, iv.lat] : [fleet.config.receiver_lon, fleet.config.receiver_lat],
 			zoom: iv?.zoom ?? 8,
 			// We own container resizes via ResizeObserver — window listener alone misses sidebar toggles
 			// and double-firing with RO causes canvas flicker.
@@ -623,9 +584,9 @@
 		{@const h = fleet.hoveredAircraft}
 		{@const d = fleet.distanceNm(h)}
 		<div
-			class="pointer-events-none absolute bottom-16 left-1/2 z-10 -translate-x-1/2 rounded-md border border-border bg-bg/90 px-3 py-1.5 font-mono text-[11px] text-text shadow-lg"
+			class="border-border bg-bg/90 text-text pointer-events-none absolute bottom-16 left-1/2 z-10 -translate-x-1/2 rounded-md border px-3 py-1.5 font-mono text-[11px] shadow-lg"
 		>
-			<span class="font-semibold text-accent">{h.callsign ?? h.icao24}</span>
+			<span class="text-accent font-semibold">{h.callsign ?? h.icao24}</span>
 			<span class="text-muted"> · </span>
 			{h.altitude != null ? `${h.altitude} ft` : '—'}
 			<span class="text-muted"> · </span>
