@@ -1,11 +1,26 @@
 # Flyscanner
 
+![Flyscanner Banner](.github/pics/banner.png)
+
+<!-- Social preview: .github/pics/social-preview.png (1280×640) — GitHub → Settings → General → Social preview -->
+
+
 > **Warning — Beta / Fun-Projekt**  
 > Noch in der **Beta**, wird derzeit **nicht aktiv weiterentwickelt** — aktuell eher ein **Spaß-/Hobby-Projekt**. Erwarte Breaking Changes, fehlende Features und keine Support-Garantie.
 
 Modernes ADS-B All-in-One: **Rust** (Beast → rs1090 → State → axum) + **Svelte 5** (MapLibre). History lokal mit **Turso/libSQL**. Demodulation bleibt bei **readsb**.
 
-Läuft auf **Linux, macOS, Windows / Windows Server** (nativ) und **Docker**. Details: [docs/PLATFORMS.md](docs/PLATFORMS.md). UI-Farben (CSS): [docs/COLORS.md](docs/COLORS.md).
+Läuft auf **Linux, macOS, Windows / Windows Server** (nativ) und **Docker**. Details: [docs/PLATFORMS.md](docs/PLATFORMS.md). UI-Farben: [docs/COLORS.md](docs/COLORS.md) (opencode-mem Dark-Shell, Accent Sky-Blau statt Lila).
+
+![](https://img.shields.io/badge/-0a0a0a?style=flat-square&color=0a0a0a)
+![](https://img.shields.io/badge/-141414?style=flat-square&color=141414)
+![](https://img.shields.io/badge/-2a2a2a?style=flat-square&color=2a2a2a)
+![](https://img.shields.io/badge/-d4d4d4?style=flat-square&color=d4d4d4)
+![](https://img.shields.io/badge/-8a8a8a?style=flat-square&color=8a8a8a)
+![](https://img.shields.io/badge/-38bdf8?style=flat-square&color=38bdf8)
+![](https://img.shields.io/badge/-34d399?style=flat-square&color=34d399)
+![](https://img.shields.io/badge/-f44336?style=flat-square&color=f44336)
+![](https://img.shields.io/badge/-f0b429?style=flat-square&color=f0b429)
 
 ## Quick start
 
