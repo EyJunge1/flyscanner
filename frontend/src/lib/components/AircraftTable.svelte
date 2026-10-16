@@ -49,10 +49,10 @@
 </script>
 
 <div class="flex min-h-0 flex-1 flex-col">
-	<div class="space-y-2 border-b border-border p-2">
+	<div class="border-border space-y-2 border-b p-2">
 		<div class="flex gap-1.5">
 			<input
-				class="min-w-0 flex-1 rounded border border-border bg-surface px-2 py-1 text-[11px] outline-none focus:border-accent"
+				class="border-border bg-surface focus:border-accent min-w-0 flex-1 rounded border px-2 py-1 text-[11px] outline-none"
 				placeholder="Search hex / callsign / reg / type"
 				bind:value={fleet.searchQuery}
 			/>
@@ -60,7 +60,7 @@
 		</div>
 		<div class="flex gap-1.5">
 			<input
-				class="min-w-0 flex-1 rounded border border-border bg-surface px-2 py-1 text-[11px] outline-none focus:border-accent"
+				class="border-border bg-surface focus:border-accent min-w-0 flex-1 rounded border px-2 py-1 text-[11px] outline-none"
 				placeholder="Jump: lat, lon or callsign"
 				bind:value={fleet.jumpQuery}
 				onkeydown={(e) => {
@@ -81,8 +81,8 @@
 				</button>
 			{/each}
 		</div>
-		<details class="text-[10px] text-muted">
-			<summary class="cursor-pointer hover:text-text">Columns</summary>
+		<details class="text-muted text-[10px]">
+			<summary class="hover:text-text cursor-pointer">Columns</summary>
 			<div class="mt-1 flex flex-wrap gap-x-3 gap-y-1">
 				{#each colMeta as c (c.id)}
 					<label class="inline-flex items-center gap-1">
@@ -92,15 +92,15 @@
 				{/each}
 			</div>
 		</details>
-		<p class="text-[10px] text-muted">
+		<p class="text-muted text-[10px]">
 			Total: {fleet.stats.aircraft_current} · Listed: {fleet.list.length}
 		</p>
 	</div>
 
 	<div class="min-h-0 flex-1 overflow-auto">
 		<table class="w-full border-collapse text-left text-[10px]">
-			<thead class="sticky top-0 z-[1] bg-bg">
-				<tr class="border-b border-border text-muted">
+			<thead class="bg-bg sticky top-0 z-1">
+				<tr class="border-border text-muted border-b">
 					{#each colMeta as c (c.id)}
 						{#if fleet.tableCols[c.id]}
 							<th class="px-1.5 py-1 font-medium">
@@ -119,19 +119,19 @@
 			<tbody>
 				{#each fleet.list as a (a.icao24)}
 					<tr
-						class="cursor-pointer border-b border-border/50 hover:bg-surface-hover/80
+						class="border-border/50 hover:bg-surface-hover/80 cursor-pointer border-b
 						{fleet.selected.has(a.icao24) ? 'bg-accent/10' : ''}"
 						onclick={(e) => fleet.select(a.icao24, e.shiftKey)}
 					>
 						{#each colMeta as c (c.id)}
 							{#if fleet.tableCols[c.id]}
-								<td class="px-1.5 py-1 font-mono text-text">{cell(a, c.id)}</td>
+								<td class="text-text px-1.5 py-1 font-mono">{cell(a, c.id)}</td>
 							{/if}
 						{/each}
 					</tr>
 				{:else}
 					<tr>
-						<td class="px-3 py-8 text-center text-muted" colspan="9">No aircraft</td>
+						<td class="text-muted px-3 py-8 text-center" colspan="9">No aircraft</td>
 					</tr>
 				{/each}
 			</tbody>

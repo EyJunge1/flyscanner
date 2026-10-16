@@ -218,8 +218,7 @@ function tick() {
 		const dlon = ((nm / 60) * Math.sin(rad)) / Math.cos((CENTER_LAT * Math.PI) / 180);
 		p.lat += dlat;
 		p.lon += dlon;
-		p.track =
-			(((p.track + randRange(-1, 1) + 0.3 * Math.sin(p.phase * 0.1)) % 360) + 360) % 360;
+		p.track = (((p.track + randRange(-1, 1) + 0.3 * Math.sin(p.phase * 0.1)) % 360) + 360) % 360;
 		p.alt = Math.max(1000, Math.min(42000, p.alt + randRange(-50, 50)));
 		p.messages += 1;
 		messagesTotal += 1;

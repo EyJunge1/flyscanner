@@ -13,13 +13,15 @@
 
 {#if fleet.showFilterPanel}
 	<div
-		class="pointer-events-auto absolute top-14 left-3 z-20 w-[min(22rem,calc(100%-1.5rem))] rounded-xl border border-border/80 bg-bg/95 shadow-2xl backdrop-blur-md"
+		class="border-border/80 bg-bg/95 pointer-events-auto absolute top-14 left-3 z-20 w-[min(22rem,calc(100%-1.5rem))] rounded-xl border shadow-2xl backdrop-blur-md"
 	>
-		<div class="flex items-center justify-between border-b border-border px-3 py-2">
-			<div class="flex items-center gap-2 text-xs font-semibold tracking-wide text-accent uppercase">
+		<div class="border-border flex items-center justify-between border-b px-3 py-2">
+			<div
+				class="text-accent flex items-center gap-2 text-xs font-semibold tracking-wide uppercase"
+			>
 				<Filter size={14} /> Super Filter
 				{#if fleet.activeFilterCount > 0}
-					<span class="rounded-full bg-accent/40 px-1.5 py-0.5 text-[10px] normal-case text-accent"
+					<span class="bg-accent/40 text-accent rounded-full px-1.5 py-0.5 text-[10px] normal-case"
 						>{fleet.activeFilterCount}</span
 					>
 				{/if}
@@ -27,7 +29,7 @@
 			<div class="flex items-center gap-1">
 				<button
 					type="button"
-					class="rounded p-1 text-muted hover:bg-surface-hover hover:text-text"
+					class="text-muted hover:bg-surface-hover hover:text-text rounded p-1"
 					title="Reset"
 					onclick={() => fleet.resetFilters()}
 				>
@@ -35,7 +37,7 @@
 				</button>
 				<button
 					type="button"
-					class="rounded p-1 text-muted hover:bg-surface-hover hover:text-text"
+					class="text-muted hover:bg-surface-hover hover:text-text rounded p-1"
 					onclick={() => (fleet.showFilterPanel = false)}
 				>
 					<X size={14} />
@@ -47,7 +49,7 @@
 			<label class="block space-y-1">
 				<span class="text-muted">Search (hex / callsign / reg / type / op)</span>
 				<input
-					class="w-full rounded-md border border-border bg-surface px-2 py-1.5 outline-none focus:border-accent"
+					class="border-border bg-surface focus:border-accent w-full rounded-md border px-2 py-1.5 outline-none"
 					bind:value={fleet.searchQuery}
 					placeholder="e.g. DLH or 3c66"
 				/>
@@ -57,21 +59,21 @@
 				<label class="space-y-1">
 					<span class="text-muted">Hex</span>
 					<input
-						class="w-full rounded-md border border-border bg-surface px-2 py-1.5 outline-none focus:border-accent"
+						class="border-border bg-surface focus:border-accent w-full rounded-md border px-2 py-1.5 outline-none"
 						bind:value={fleet.filterIcao}
 					/>
 				</label>
 				<label class="space-y-1">
 					<span class="text-muted">Callsign</span>
 					<input
-						class="w-full rounded-md border border-border bg-surface px-2 py-1.5 outline-none focus:border-accent"
+						class="border-border bg-surface focus:border-accent w-full rounded-md border px-2 py-1.5 outline-none"
 						bind:value={fleet.filterCallsign}
 					/>
 				</label>
 				<label class="space-y-1">
 					<span class="text-muted">Type</span>
 					<input
-						class="w-full rounded-md border border-border bg-surface px-2 py-1.5 outline-none focus:border-accent"
+						class="border-border bg-surface focus:border-accent w-full rounded-md border px-2 py-1.5 outline-none"
 						bind:value={fleet.filterType}
 						placeholder="A320"
 					/>
@@ -79,14 +81,14 @@
 				<label class="space-y-1">
 					<span class="text-muted">Reg</span>
 					<input
-						class="w-full rounded-md border border-border bg-surface px-2 py-1.5 outline-none focus:border-accent"
+						class="border-border bg-surface focus:border-accent w-full rounded-md border px-2 py-1.5 outline-none"
 						bind:value={fleet.filterReg}
 					/>
 				</label>
 				<label class="space-y-1">
 					<span class="text-muted">Squawk</span>
 					<input
-						class="w-full rounded-md border border-border bg-surface px-2 py-1.5 outline-none focus:border-accent"
+						class="border-border bg-surface focus:border-accent w-full rounded-md border px-2 py-1.5 outline-none"
 						bind:value={fleet.filterSquawk}
 						placeholder="7700"
 					/>
@@ -94,18 +96,18 @@
 			</div>
 
 			<div>
-				<p class="mb-1.5 text-muted">Altitude (ft)</p>
+				<p class="text-muted mb-1.5">Altitude (ft)</p>
 				<div class="grid grid-cols-2 gap-2">
 					<input
 						type="number"
-						class="rounded-md border border-border bg-surface px-2 py-1.5 outline-none focus:border-accent"
+						class="border-border bg-surface focus:border-accent rounded-md border px-2 py-1.5 outline-none"
 						placeholder="Min"
 						value={fleet.minAlt ?? ''}
 						oninput={(e) => (fleet.minAlt = numOrNull(e.currentTarget.value))}
 					/>
 					<input
 						type="number"
-						class="rounded-md border border-border bg-surface px-2 py-1.5 outline-none focus:border-accent"
+						class="border-border bg-surface focus:border-accent rounded-md border px-2 py-1.5 outline-none"
 						placeholder="Max"
 						value={fleet.maxAlt ?? ''}
 						oninput={(e) => (fleet.maxAlt = numOrNull(e.currentTarget.value))}
@@ -116,7 +118,7 @@
 					min="0"
 					max="45000"
 					step="500"
-					class="mt-2 w-full accent-accent"
+					class="accent-accent mt-2 w-full"
 					value={fleet.maxAlt ?? 45000}
 					oninput={(e) => {
 						fleet.maxAlt = Number(e.currentTarget.value);
@@ -125,18 +127,18 @@
 			</div>
 
 			<div>
-				<p class="mb-1.5 text-muted">Groundspeed (kt)</p>
+				<p class="text-muted mb-1.5">Groundspeed (kt)</p>
 				<div class="grid grid-cols-2 gap-2">
 					<input
 						type="number"
-						class="rounded-md border border-border bg-surface px-2 py-1.5 outline-none focus:border-accent"
+						class="border-border bg-surface focus:border-accent rounded-md border px-2 py-1.5 outline-none"
 						placeholder="Min"
 						value={fleet.minGs ?? ''}
 						oninput={(e) => (fleet.minGs = numOrNull(e.currentTarget.value))}
 					/>
 					<input
 						type="number"
-						class="rounded-md border border-border bg-surface px-2 py-1.5 outline-none focus:border-accent"
+						class="border-border bg-surface focus:border-accent rounded-md border px-2 py-1.5 outline-none"
 						placeholder="Max"
 						value={fleet.maxGs ?? ''}
 						oninput={(e) => (fleet.maxGs = numOrNull(e.currentTarget.value))}
@@ -148,7 +150,7 @@
 				<span class="text-muted">Max distance (nmi)</span>
 				<input
 					type="number"
-					class="w-full rounded-md border border-border bg-surface px-2 py-1.5 outline-none focus:border-accent"
+					class="border-border bg-surface focus:border-accent w-full rounded-md border px-2 py-1.5 outline-none"
 					placeholder="e.g. 100"
 					value={fleet.maxDistNm ?? ''}
 					oninput={(e) => (fleet.maxDistNm = numOrNull(e.currentTarget.value))}
@@ -156,7 +158,7 @@
 			</label>
 
 			<div>
-				<p class="mb-1.5 text-muted">Source</p>
+				<p class="text-muted mb-1.5">Source</p>
 				<div class="flex flex-wrap gap-1">
 					{#each sources as s (s)}
 						<button
@@ -171,20 +173,27 @@
 				</div>
 			</div>
 
-			<label class="flex items-center gap-2 text-muted">
+			<label class="text-muted flex items-center gap-2">
 				<input type="checkbox" bind:checked={fleet.onlyWithPos} />
 				Only with position
 			</label>
 
-			<div class="flex flex-wrap gap-1.5 border-t border-border pt-2">
-				<button type="button" class="chip" class:active={fleet.isolate} onclick={() => (fleet.isolate = !fleet.isolate)}
-					>Isolate selected</button
+			<div class="border-border flex flex-wrap gap-1.5 border-t pt-2">
+				<button
+					type="button"
+					class="chip"
+					class:active={fleet.isolate}
+					onclick={() => (fleet.isolate = !fleet.isolate)}>Isolate selected</button
 				>
-				<button type="button" class="chip" onclick={() => fleet.selectAllVisible()}>Select all listed</button>
-				<button type="button" class="chip" onclick={() => fleet.clearSelection()}>Clear selection</button>
+				<button type="button" class="chip" onclick={() => fleet.selectAllVisible()}
+					>Select all listed</button
+				>
+				<button type="button" class="chip" onclick={() => fleet.clearSelection()}
+					>Clear selection</button
+				>
 			</div>
 
-			<p class="text-[10px] text-muted">
+			<p class="text-muted text-[10px]">
 				Showing {fleet.list.length} / {fleet.stats.aircraft_current} aircraft
 			</p>
 		</div>

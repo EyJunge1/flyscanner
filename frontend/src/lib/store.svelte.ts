@@ -20,7 +20,8 @@ import type {
 } from './types';
 
 export type BasemapId = 'osm' | 'dark' | 'satellite';
-export type TableCol = 'icao' | 'callsign' | 'type' | 'alt' | 'spd' | 'track' | 'src' | 'dist' | 'rssi';
+export type TableCol =
+	'icao' | 'callsign' | 'type' | 'alt' | 'spd' | 'track' | 'src' | 'dist' | 'rssi';
 export type SortKey = TableCol | 'reg';
 
 function wsUrl(): string {
@@ -171,12 +172,7 @@ class FleetStore {
 
 	distanceNm(a: Aircraft): number | null {
 		if (a.latitude == null || a.longitude == null) return null;
-		return haversineNm(
-			this.config.receiver_lat,
-			this.config.receiver_lon,
-			a.latitude,
-			a.longitude
-		);
+		return haversineNm(this.config.receiver_lat, this.config.receiver_lon, a.latitude, a.longitude);
 	}
 
 	matchesFilter(a: Aircraft): boolean {
@@ -493,9 +489,7 @@ class FleetStore {
 
 	exportKml(a: Aircraft): string {
 		const name = a.callsign ?? a.icao24;
-		const coords = a.track_history
-			.map((p) => `${p.lon},${p.lat},${p.alt ?? 0}`)
-			.join(' ');
+		const coords = a.track_history.map((p) => `${p.lon},${p.lat},${p.alt ?? 0}`).join(' ');
 		const pos =
 			a.longitude != null && a.latitude != null
 				? `<Placemark><name>${name}</name><Point><coordinates>${a.longitude},${a.latitude},${a.altitude ?? 0}</coordinates></Point></Placemark>`

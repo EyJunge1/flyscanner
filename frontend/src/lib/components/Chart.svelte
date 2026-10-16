@@ -56,7 +56,7 @@
 <div class="space-y-1">
 	<div class="flex items-baseline justify-between gap-2 text-[11px]">
 		<span class="text-muted">{label}</span>
-		<span class="font-mono text-text">
+		<span class="text-text font-mono">
 			{#if stats.last != null}
 				{stats.last.toFixed(stats.last >= 100 ? 0 : 1)}{unit ? ` ${unit}` : ''}
 			{:else}
@@ -66,7 +66,7 @@
 	</div>
 	<svg
 		viewBox="0 0 320 {height}"
-		class="h-24 w-full rounded border border-border bg-bg/60"
+		class="border-border bg-bg/60 h-24 w-full rounded border"
 		preserveAspectRatio="none"
 	>
 		{#if stats.path}
@@ -75,7 +75,7 @@
 			<text x="10" y={height / 2} fill="var(--ui-muted)" font-size="11">collecting…</text>
 		{/if}
 	</svg>
-	<div class="flex justify-between font-mono text-[10px] text-muted">
+	<div class="text-muted flex justify-between font-mono text-[10px]">
 		<span>{fmtTs(stats.firstTs)}</span>
 		<span
 			>{points.length} pts · {stats.min.toFixed(0)}–{stats.max.toFixed(0)}{unit

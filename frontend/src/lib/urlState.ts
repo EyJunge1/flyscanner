@@ -68,7 +68,13 @@ export function applyUrlParams(search = window.location.search) {
 	const src = get('filterSources') ?? get('filterSource');
 	if (src) {
 		const first = src.split(',')[0]?.trim().toLowerCase();
-		if (first === 'adsb' || first === 'mlat' || first === 'modes' || first === 'tisb' || first === 'other') {
+		if (
+			first === 'adsb' ||
+			first === 'mlat' ||
+			first === 'modes' ||
+			first === 'tisb' ||
+			first === 'other'
+		) {
 			fleet.filterSource = first;
 		}
 	}

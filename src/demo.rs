@@ -5,7 +5,7 @@ use std::f64::consts::PI;
 use crate::beast::BeastFrame;
 use crate::decode::MessageSource;
 use crate::icao::Icao24;
-use rand::{Rng, SeedableRng};
+use rand::RngExt;
 use tokio::sync::mpsc;
 use tokio::time::{interval, Duration};
 use tokio_util::sync::CancellationToken;
@@ -86,7 +86,7 @@ pub fn spawn(
         ];
 
         let mut tick = interval(Duration::from_millis(500));
-        let mut rng = rand::rngs::StdRng::from_os_rng();
+        let mut rng: rand::rngs::StdRng = rand::make_rng();
 
         loop {
             tokio::select! {

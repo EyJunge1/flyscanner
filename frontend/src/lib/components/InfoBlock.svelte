@@ -16,18 +16,18 @@
 
 {#if a}
 	<div
-		class="pointer-events-auto absolute top-14 right-3 z-20 flex max-h-[calc(100%-8rem)] w-[min(20rem,calc(100%-1.5rem))] flex-col overflow-hidden rounded-xl border border-border/80 bg-bg/95 shadow-2xl backdrop-blur-md"
+		class="border-border/80 bg-bg/95 pointer-events-auto absolute top-14 right-3 z-20 flex max-h-[calc(100%-8rem)] w-[min(20rem,calc(100%-1.5rem))] flex-col overflow-hidden rounded-xl border shadow-2xl backdrop-blur-md"
 	>
-		<div class="flex shrink-0 items-start justify-between gap-2 border-b border-border px-3 py-2.5">
+		<div class="border-border flex shrink-0 items-start justify-between gap-2 border-b px-3 py-2.5">
 			<div class="min-w-0">
-				<p class="truncate font-mono text-base font-semibold text-accent">
+				<p class="text-accent truncate font-mono text-base font-semibold">
 					{a.callsign ?? a.registration ?? a.icao24}
 				</p>
-				<p class="font-mono text-[10px] text-muted uppercase">
+				<p class="text-muted font-mono text-[10px] uppercase">
 					Hex: {a.icao24}
 					<button
 						type="button"
-						class="ml-1 inline text-accent hover:text-accent"
+						class="text-accent hover:text-accent ml-1 inline"
 						onclick={() => fleet.copyLink(a)}
 						title="Copy link"
 					>
@@ -37,7 +37,7 @@
 			</div>
 			<button
 				type="button"
-				class="rounded p-1 text-muted hover:bg-surface-hover"
+				class="text-muted hover:bg-surface-hover rounded p-1"
 				onclick={() => fleet.clearSelection()}
 			>
 				<X size={14} />
@@ -46,8 +46,8 @@
 
 		<div class="min-h-0 flex-1 space-y-3 overflow-y-auto px-3 py-2.5 text-[11px]">
 			<section>
-				<h3 class="mb-1 text-[9px] font-semibold tracking-wider text-muted uppercase">Identity</h3>
-				<dl class="grid grid-cols-[4.5rem_1fr] gap-x-2 gap-y-0.5 font-mono text-text">
+				<h3 class="text-muted mb-1 text-[9px] font-semibold tracking-wider uppercase">Identity</h3>
+				<dl class="text-text grid grid-cols-[4.5rem_1fr] gap-x-2 gap-y-0.5 font-mono">
 					<dt class="text-muted">Reg.</dt>
 					<dd>{a.registration ?? 'n/a'}</dd>
 					<dt class="text-muted">Airline</dt>
@@ -60,12 +60,12 @@
 			</section>
 
 			<section>
-				<h3 class="mb-1 text-[9px] font-semibold tracking-wider text-muted uppercase">
+				<h3 class="text-muted mb-1 text-[9px] font-semibold tracking-wider uppercase">
 					Altitude lifeline
 				</h3>
 				{#if altSeries.length >= 2}
 					<Sparkline points={altSeries} height={56} />
-					<p class="mt-0.5 text-[10px] text-muted">
+					<p class="text-muted mt-0.5 text-[10px]">
 						{altSeries[0]?.[1]} → {altSeries[altSeries.length - 1]?.[1]} ft · {altSeries.length} pts
 					</p>
 				{:else}
@@ -74,8 +74,8 @@
 			</section>
 
 			<section>
-				<h3 class="mb-1 text-[9px] font-semibold tracking-wider text-muted uppercase">Spatial</h3>
-				<dl class="grid grid-cols-[4.5rem_1fr] gap-x-2 gap-y-0.5 font-mono text-text">
+				<h3 class="text-muted mb-1 text-[9px] font-semibold tracking-wider uppercase">Spatial</h3>
+				<dl class="text-text grid grid-cols-[4.5rem_1fr] gap-x-2 gap-y-0.5 font-mono">
 					<dt class="text-muted">GS</dt>
 					<dd>{a.groundspeed != null ? `${a.groundspeed.toFixed(0)} kt` : 'n/a'}</dd>
 					<dt class="text-muted">Alt</dt>
@@ -98,8 +98,8 @@
 			</section>
 
 			<section>
-				<h3 class="mb-1 text-[9px] font-semibold tracking-wider text-muted uppercase">Signal</h3>
-				<dl class="grid grid-cols-[4.5rem_1fr] gap-x-2 gap-y-0.5 font-mono text-text">
+				<h3 class="text-muted mb-1 text-[9px] font-semibold tracking-wider uppercase">Signal</h3>
+				<dl class="text-text grid grid-cols-[4.5rem_1fr] gap-x-2 gap-y-0.5 font-mono">
 					<dt class="text-muted">Source</dt>
 					<dd>{a.source.toUpperCase()}</dd>
 					<dt class="text-muted">RSSI</dt>
@@ -112,7 +112,12 @@
 			</section>
 
 			<div class="flex flex-wrap gap-1.5 pb-1">
-				<button type="button" class="chip" class:active={fleet.follow} onclick={() => fleet.toggleFollow()}>
+				<button
+					type="button"
+					class="chip"
+					class:active={fleet.follow}
+					onclick={() => fleet.toggleFollow()}
+				>
 					<Navigation size={10} /> Follow
 				</button>
 				<button type="button" class="chip" onclick={() => fleet.downloadKml(a)}>
