@@ -17,6 +17,7 @@
     "check": "npm run lint && npm --prefix frontend run check",
     "pics:banner": "node scripts/render-banner.mjs",
     "pics:social": "node scripts/render-social-preview.mjs",
-    "pics": "npm run pics:banner && npm run pics:social"
+    "pics:favicon": "node scripts/render-favicon.mjs",
+    "pics": "npm run pics:banner && npm run pics:social && npm run pics:favicon"
   }
 }

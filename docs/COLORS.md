@@ -54,6 +54,6 @@ Swatches = Light | Dark.
 
 ## Rules
 
-1. Change hex values **only** in `layout.css`. Banner + social preview read `.dark` from there (`npm run pics`).
+1. Change hex values **only** in `layout.css`. Banner, social preview, and favicon read `.dark` from there (`npm run pics`).
 2. Markup: use tokens / Tailwind aliases — no `sky-*` / `slate-*` hardcodes.
 3. MapLibre overlays: `cssVar('--ui-…')` and reset on theme change.

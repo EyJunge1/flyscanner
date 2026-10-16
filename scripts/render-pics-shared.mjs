@@ -1,5 +1,5 @@
 /**
- * Shared layout + colors for banner / social preview.
+ * Shared layout + colors for banner / social / favicon.
  * Colors from frontend/src/routes/layout.css (.dark).
  */
 import { readFileSync } from "node:fs";
@@ -31,6 +31,27 @@ function monoWidth(text, size, letterSpacing = 0) {
 	return text.length * size * 0.6 + Math.max(0, text.length - 1) * letterSpacing;
 }
 
+/** Logo tile markup — identical for banner, social, and favicon. */
+export function logoTileInner(logo, accent, surface) {
+	const rx = Math.round(logo * (16 / 68));
+	const pad = Math.round(logo * (10 / 68));
+	const planeScale = 2 * (logo / 68);
+	return `
+    <rect width="${logo}" height="${logo}" rx="${rx}" fill="${surface}"/>
+    <rect width="${logo}" height="${logo}" rx="${rx}" fill="${accent}" fill-opacity="0.15"/>
+    <g transform="translate(${pad}, ${pad}) scale(${planeScale})">
+      <path
+        d="${planeD}"
+        fill="none"
+        stroke="${accent}"
+        stroke-width="2"
+        stroke-linecap="round"
+        stroke-linejoin="round"
+        vector-effect="non-scaling-stroke"
+      />
+    </g>`;
+}
+
 /**
  * Same visual recipe for both sizes:
  * logo left (rounded tile), crisp outline plane, title + subtitle stacked right.
@@ -47,9 +68,6 @@ export function brandLayout({ W, H }) {
 
 	// Match original banner ratios (logo 68 / H 300, pad 10, stroke 2, scale 2)
 	const logo = Math.round(H * (68 / 300));
-	const rx = Math.round(logo * (16 / 68));
-	const pad = Math.round(logo * (10 / 68));
-	const planeScale = 2 * (logo / 68);
 
 	const title = "flyscanner";
 	const subtitle = "ADS-B ALL-IN-ONE";
@@ -68,25 +86,13 @@ export function brandLayout({ W, H }) {
 	const textX = groupX + logo + gap;
 	const titleY = groupY + logo / 2 - Math.round(titleSize * 0.28);
 	const subY = groupY + logo / 2 + Math.round(titleSize * 0.48);
+	const tile = logoTileInner(logo, colors.accent, colors.surface);
 
 	const svg = `<?xml version="1.0" encoding="UTF-8"?>
 <svg xmlns="http://www.w3.org/2000/svg" width="${W}" height="${H}" viewBox="0 0 ${W} ${H}">
   <rect width="${W}" height="${H}" fill="${colors.bg}"/>
 
-  <g transform="translate(${groupX}, ${groupY})">
-    <rect width="${logo}" height="${logo}" rx="${rx}" fill="${colors.surface}"/>
-    <rect width="${logo}" height="${logo}" rx="${rx}" fill="${colors.accent}" fill-opacity="0.15"/>
-    <g transform="translate(${pad}, ${pad}) scale(${planeScale})">
-      <path
-        d="${planeD}"
-        fill="none"
-        stroke="${colors.accent}"
-        stroke-width="2"
-        stroke-linecap="round"
-        stroke-linejoin="round"
-        vector-effect="non-scaling-stroke"
-      />
-    </g>
+  <g transform="translate(${groupX}, ${groupY})">${tile}
   </g>
 
   <text
@@ -114,4 +120,14 @@ export function brandLayout({ W, H }) {
 </svg>`;
 
 	return { svg, colors, logo };
+}
+
+/** Favicon = same logo tile as banner (same surface / accent / opacity). */
+export function faviconSvg(size = 32) {
+	const ui = loadDarkUiColors();
+	const tile = logoTileInner(size, ui.accent, ui.surface);
+	return `<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 ${size} ${size}" width="${size}" height="${size}" fill="none">${tile}
+</svg>
+`;
 }
