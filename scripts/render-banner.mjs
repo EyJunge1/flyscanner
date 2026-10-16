@@ -1,7 +1,9 @@
 /**
- * GitHub README banner — same recipe as opencode-mem/web/scripts/render-banner.mjs
- * Needs JetBrains Mono TTFs under /tmp/jetbrains-mono/fonts/ttf/
- * and @resvg/resvg-js (e.g. from opencode-mem/web/node_modules).
+ * GitHub README banner (1200×300).
+ * Same layout as social preview: logo tile left, name + tagline right.
+ * Colors from frontend/src/routes/layout.css (.dark).
+ *
+ *   node scripts/render-banner.mjs
  */
 import { createRequire } from "node:module";
 import { readFileSync, writeFileSync } from "node:fs";
@@ -14,7 +16,6 @@ const out = path.join(root, ".github/pics/banner.png");
 const cssPath = path.join(root, "frontend/src/routes/layout.css");
 const fontDir = "/tmp/jetbrains-mono/fonts/ttf";
 
-/** Parse `.dark { --ui-*: #hex; }` from layout.css — keep pics + UI in sync. */
 function loadDarkUiColors() {
 	const css = readFileSync(cssPath, "utf8");
 	const block = css.match(/\.dark\s*\{([^}]+)\}/);
@@ -47,70 +48,77 @@ const { Resvg } = await loadResvg();
 const ui = loadDarkUiColors();
 
 const colors = {
-	panel: ui.sidebar ?? ui.bg,
-	card: ui.surface,
-	foregroundBright: ui["text-bright"],
+	bg: ui.bg,
+	surface: ui.surface,
+	title: ui["text-bright"],
 	muted: ui.muted,
-	primary: ui.accent,
+	accent: ui.accent,
 };
 
 const W = 1200;
 const H = 300;
-const CX = W / 2;
 
-/** JetBrains Mono advance ≈ 0.6em */
-function monoWidth(text, size) {
-	return text.length * size * 0.6;
-}
-
-/** Lucide "plane" (24×24) */
 const planePaths = `
   <path d="M17.8 19.2 16 11l3.5-3.5C21 6 21.5 4 21 3c-1-.5-3 0-4.5 1.5L13 8 4.8 6.2c-.5-.1-.9.1-1.1.5l-.3.5c-.2.5-.1 1 .3 1.3L9 12l-2 3H4l-1 1 3 2 2 3 1-1v-3l3-2 3.5 5.3c.3.4.8.5 1.3.3l.5-.2c.4-.3.6-.7.5-1.2z"/>
 `;
 
-const brand = "flyscanner";
-const brandSize = 48;
-const logo = 68;
-const brandGap = 20;
-const brandTextW = monoWidth(brand, brandSize);
-const brandGroupW = logo + brandGap + brandTextW;
-const brandX = CX - brandGroupW / 2;
-const brandY = 95;
+const logo = 96;
+const pad = 18;
+const planeScale = (logo - pad * 2) / 24;
+const title = "flyscanner";
+const subtitle = "ADS-B ALL-IN-ONE";
+const titleSize = 52;
+const subSize = 18;
 
-const subtitle = "MODERN ADS-B ALL-IN-ONE STACK";
+const gap = 32;
+const textBlockW = 420;
+const groupW = logo + gap + textBlockW;
+const groupX = (W - groupW) / 2;
+const groupY = (H - logo) / 2;
+const textX = groupX + logo + gap;
+const titleY = groupY + logo / 2 - 14;
+const subY = groupY + logo / 2 + 24;
 
 const svg = `<?xml version="1.0" encoding="UTF-8"?>
 <svg xmlns="http://www.w3.org/2000/svg" width="${W}" height="${H}" viewBox="0 0 ${W} ${H}">
-  <rect width="${W}" height="${H}" fill="${colors.panel}"/>
-  <rect x="1" y="1" width="${W - 2}" height="${H - 2}" rx="12" fill="${colors.panel}" stroke="${colors.primary}" stroke-width="2"/>
+  <rect width="${W}" height="${H}" fill="${colors.bg}"/>
 
-  <g transform="translate(${brandX}, ${brandY})">
-    <rect width="${logo}" height="${logo}" rx="16" fill="${colors.card}"/>
-    <rect width="${logo}" height="${logo}" rx="16" fill="${colors.primary}" fill-opacity="0.15"/>
-    <g transform="translate(10, 10)" stroke="${colors.primary}" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" fill="none">
-      <g transform="scale(2)">${planePaths}</g>
+  <g transform="translate(${groupX}, ${groupY})">
+    <rect width="${logo}" height="${logo}" rx="22" fill="${colors.surface}"/>
+    <rect width="${logo}" height="${logo}" rx="22" fill="${colors.accent}" fill-opacity="0.15"/>
+    <g
+      transform="translate(${pad}, ${pad})"
+      stroke="${colors.accent}"
+      stroke-width="2"
+      stroke-linecap="round"
+      stroke-linejoin="round"
+      fill="none"
+    >
+      <g transform="scale(${planeScale})">${planePaths}</g>
     </g>
-    <text
-      x="${logo + brandGap}"
-      y="${logo / 2}"
-      text-anchor="start"
-      font-family="JetBrains Mono"
-      font-weight="700"
-      font-size="${brandSize}"
-      fill="${colors.foregroundBright}"
-      dominant-baseline="middle"
-    >${brand}</text>
   </g>
 
   <text
-    x="${CX}"
-    y="210"
-    text-anchor="middle"
+    x="${textX}"
+    y="${titleY}"
+    text-anchor="start"
+    font-family="JetBrains Mono"
+    font-weight="700"
+    font-size="${titleSize}"
+    fill="${colors.title}"
+    dominant-baseline="middle"
+  >${title}</text>
+
+  <text
+    x="${textX}"
+    y="${subY}"
+    text-anchor="start"
     font-family="JetBrains Mono"
     font-weight="400"
-    font-size="15"
+    font-size="${subSize}"
     fill="${colors.muted}"
-    letter-spacing="3"
+    letter-spacing="2"
+    dominant-baseline="middle"
   >${subtitle}</text>
 </svg>`;
 
